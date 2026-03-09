@@ -1,0 +1,1128 @@
+{
+  "name": "WooCommerce to Postgres ETL",
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "upsert",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "orders",
+          "mode": "list",
+          "cachedResultName": "orders"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id": "={{ $('Get Orders').item.json.id }}",
+            "status": "={{ $('Get Orders').item.json.status }}",
+            "customer_id": "={{ $('Get Orders').item.json.customer_id }}",
+            "currency": "={{ $('Get Orders').item.json.currency }}",
+            "order_key": "={{ $('Get Orders').item.json.order_key }}",
+            "discount_total": "={{ $('Get Orders').item.json.discount_total }}",
+            "shipping_total": "={{ $('Get Orders').item.json.shipping_total }}",
+            "discount_tax": "={{ $('Get Orders').item.json.discount_tax }}",
+            "shipping_tax": "={{ $('Get Orders').item.json.shipping_tax }}",
+            "cart_tax": "={{ $('Get Orders').item.json.cart_tax }}",
+            "total_tax": "={{ $('Get Orders').item.json.total_tax }}",
+            "total": "={{ $('Get Orders').item.json.total }}",
+            "payment_method": "={{ $('Get Orders').item.json.payment_method }}",
+            "payment_method_title": "={{ $('Get Orders').item.json.payment_method_title }}",
+            "transaction_id": "={{ $('Get Orders').item.json.transaction_id }}",
+            "date_paid": "={{ $('Get Orders').item.json.date_paid }}",
+            "cart_hash": "={{ $('Get Orders').item.json.cart_hash }}",
+            "date_completed": "={{ $('Get Orders').item.json.date_completed }}",
+            "date_created": "={{ $('Get Orders').item.json.date_created }}",
+            "date_modified": "={{ $('Get Orders').item.json.date_modified }}",
+            "billing_first_name": "={{ $('Get Orders').item.json.billing.first_name }}",
+            "shipping_first_name": "={{ $('Get Orders').item.json.shipping.first_name }}",
+            "shipping_last_name": "={{ $('Get Orders').item.json.shipping.last_name }}",
+            "billing_last_name": "={{ $('Get Orders').item.json.billing.last_name }}",
+            "billing_company": "={{ $('Get Orders').item.json.billing.company }}",
+            "shipping_company": "={{ $('Get Orders').item.json.shipping.company }}",
+            "billing_address_1": "={{ $('Get Orders').item.json.billing.address_1 }}",
+            "billing_address_2": "={{ $('Get Orders').item.json.billing.address_2 }}",
+            "billing_state": "={{ $('Get Orders').item.json.billing.state }}",
+            "billing_city": "={{ $('Get Orders').item.json.billing.city }}",
+            "billing_postcode": "={{ $('Get Orders').item.json.billing.postcode }}",
+            "billing_email": "={{ $('Get Orders').item.json.billing.email }}",
+            "billing_phone": "={{ $('Get Orders').item.json.billing.phone }}",
+            "shipping_address_1": "={{ $('Get Orders').item.json.shipping.address_1 }}",
+            "shipping_address_2": "={{ $('Get Orders').item.json.shipping.address_2 }}",
+            "shipping_city": "={{ $('Get Orders').item.json.shipping.city }}",
+            "shipping_state": "={{ $('Get Orders').item.json.shipping.state }}",
+            "shipping_postcode": "={{ $('Get Orders').item.json.shipping.postcode }}",
+            "shipping_country": "={{ $('Get Orders').item.json.shipping.country }}",
+            "shipping_phone": "={{ $('Get Orders').item.json.shipping.phone }}",
+            "billing_country": "={{ $('Get Orders').item.json.billing.country }}",
+            "customer_status": "={{ $json.customer_status }}",
+            "created_via": "={{ $('Get Orders').item.json.created_via }}",
+            "customer_note": "={{ $('Get Orders').item.json.customer_note }}",
+            "number": "={{ $('Get Orders').item.json.number }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "customer_id",
+              "displayName": "customer_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "created_via",
+              "displayName": "created_via",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false,
+              "removed": false
+            },
+            {
+              "id": "customer_note",
+              "displayName": "customer_note",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false,
+              "removed": false
+            },
+            {
+              "id": "number",
+              "displayName": "number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false,
+              "removed": false
+            },
+            {
+              "id": "currency",
+              "displayName": "currency",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "order_key",
+              "displayName": "order_key",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "discount_total",
+              "displayName": "discount_total",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "discount_tax",
+              "displayName": "discount_tax",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "shipping_total",
+              "displayName": "shipping_total",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "shipping_tax",
+              "displayName": "shipping_tax",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "cart_tax",
+              "displayName": "cart_tax",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "total_tax",
+              "displayName": "total_tax",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "total",
+              "displayName": "total",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "prices_include_tax",
+              "displayName": "prices_include_tax",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": false,
+              "removed": true
+            },
+            {
+              "id": "payment_method",
+              "displayName": "payment_method",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "payment_method_title",
+              "displayName": "payment_method_title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "transaction_id",
+              "displayName": "transaction_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "date_paid",
+              "displayName": "date_paid",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "cart_hash",
+              "displayName": "cart_hash",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "date_completed",
+              "displayName": "date_completed",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "set_paid",
+              "displayName": "set_paid",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": false,
+              "removed": true
+            },
+            {
+              "id": "date_created",
+              "displayName": "date_created",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "date_modified",
+              "displayName": "date_modified",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "billing_first_name",
+              "displayName": "billing_first_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "billing_last_name",
+              "displayName": "billing_last_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "billing_company",
+              "displayName": "billing_company",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "billing_address_1",
+              "displayName": "billing_address_1",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "billing_address_2",
+              "displayName": "billing_address_2",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "billing_city",
+              "displayName": "billing_city",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "billing_state",
+              "displayName": "billing_state",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "billing_postcode",
+              "displayName": "billing_postcode",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "billing_country",
+              "displayName": "billing_country",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "billing_email",
+              "displayName": "billing_email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "billing_phone",
+              "displayName": "billing_phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "shipping_first_name",
+              "displayName": "shipping_first_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "shipping_last_name",
+              "displayName": "shipping_last_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "shipping_company",
+              "displayName": "shipping_company",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "shipping_address_1",
+              "displayName": "shipping_address_1",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "shipping_address_2",
+              "displayName": "shipping_address_2",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "shipping_city",
+              "displayName": "shipping_city",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "shipping_state",
+              "displayName": "shipping_state",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "shipping_postcode",
+              "displayName": "shipping_postcode",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "shipping_country",
+              "displayName": "shipping_country",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "shipping_phone",
+              "displayName": "shipping_phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "customer_status",
+              "displayName": "customer_status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "927fa03f-bfc1-4052-9cbf-55e9a21d5b65",
+      "name": "Insert Order",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        880,
+        500
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "postgres": {
+          "id": "XoX5Nox5i4rg33Nh",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "upsert",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "order_line_items",
+          "mode": "list",
+          "cachedResultName": "order_line_items"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id": "={{ $json.line_items.id }}",
+            "order_id": "={{ $json.id }}",
+            "product_id": "={{ $json.line_items.product_id }}",
+            "variation_id": "={{ $json.line_items.variation_id }}",
+            "quantity": "={{ $json.line_items.quantity }}",
+            "subtotal": "={{ $json.line_items.subtotal }}",
+            "subtotal_tax": "={{ $json.line_items.subtotal_tax }}",
+            "total": "={{ $json.line_items.total }}",
+            "total_tax": "={{ $json.line_items.total_tax }}",
+            "price": "={{ $json.line_items.price }}",
+            "name": "={{ $json.line_items.name }}",
+            "tax_class": "={{ $json.line_items.tax_class }}",
+            "sku": "={{ $json.line_items.sku }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "order_id",
+              "displayName": "order_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "product_id",
+              "displayName": "product_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "variation_id",
+              "displayName": "variation_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "quantity",
+              "displayName": "quantity",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "tax_class",
+              "displayName": "tax_class",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "subtotal",
+              "displayName": "subtotal",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "subtotal_tax",
+              "displayName": "subtotal_tax",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "total",
+              "displayName": "total",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "total_tax",
+              "displayName": "total_tax",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "sku",
+              "displayName": "sku",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "price",
+              "displayName": "price",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "884c0f50-73d1-4dba-98c3-ce1727016234",
+      "name": "Insert Line Item",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        320,
+        920
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "XoX5Nox5i4rg33Nh",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "=line_items",
+        "include": "selectedOtherFields",
+        "fieldsToInclude": "id",
+        "options": {}
+      },
+      "id": "07cddfac-00a7-4137-83a2-717893de7fc1",
+      "name": "Split Out",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        140,
+        920
+      ],
+      "executeOnce": false
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 8
+            }
+          ]
+        }
+      },
+      "id": "9c6d53b7-cd6f-4d00-8e71-1d6355c45d87",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -360,
+        860
+      ]
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/REDACTED_SHEET_ID/edit",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1234567890,
+          "mode": "list",
+          "cachedResultName": "client_base",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/REDACTED_SHEET_ID/edit"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        140,
+        1220
+      ],
+      "id": "ba811c6e-2db1-4691-af6b-90d944b49eb7",
+      "name": "Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ISQO8uulbOvYyDIs",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "upsert",
+        "schema": {
+          "__rl": true,
+          "value": "public",
+          "mode": "list",
+          "cachedResultName": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "Customer Assignment",
+          "mode": "list",
+          "cachedResultName": "Customer Assignment"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "customer": "={{ $json.customer }}",
+            "Key_Account_Manager/E-commerce_Platform": "={{ $json['Key_Account_Manager/E-commerce_Platform'] }}",
+            "Assignment": "={{ $json.Assignment }}",
+            "id": "={{ $json.ID }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "customer",
+              "displayName": "customer",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "Assignment",
+              "displayName": "Assignment",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "Key_Account_Manager/E-commerce_Platform",
+              "displayName": "Key_Account_Manager/E-commerce_Platform",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "b9b98ca5-799b-4e0d-bd3b-7de38895f9ad",
+      "name": "Insert Customer Assignment",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        540,
+        1220
+      ],
+      "alwaysOutputData": false,
+      "credentials": {
+        "postgres": {
+          "id": "XoX5Nox5i4rg33Nh",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "=SELECT COUNT(*) AS order_count\nFROM orders\nWHERE billing_first_name = '{{$json[\"billing\"][\"first_name\"]}}'\n  AND billing_last_name = '{{$json[\"billing\"][\"last_name\"]}}'\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        160,
+        500
+      ],
+      "id": "887894fb-c193-413a-b12a-f1c1898748f4",
+      "name": "new/returning customer check",
+      "credentials": {
+        "postgres": {
+          "id": "XoX5Nox5i4rg33Nh",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "5c0545e2-5959-440e-9667-3589718edeae",
+              "leftValue": "={{ $json.order_count }}",
+              "rightValue": "1",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        400,
+        500
+      ],
+      "id": "32118810-9e79-4994-ade8-dd8701048350",
+      "name": "If (new/returning)"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "13290b27-06d5-4d90-84c7-2981133d1a94",
+              "name": "customer_status",
+              "value": "new",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        620,
+        400
+      ],
+      "id": "69f25d30-538b-4d45-900a-3dad11ad4c98",
+      "name": "new customer"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "12bf0e22-f588-4b36-8281-a6ffd0be795d",
+              "name": "customer_status",
+              "value": "returning",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        620,
+        600
+      ],
+      "id": "ecdea6a4-3c41-4edc-8814-84a8192c5b74",
+      "name": "returning customer"
+    },
+    {
+      "parameters": {
+        "resource": "order",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {
+          "after": "={{ new Date(new Date().setDate(new Date().getDate() - 1)).toISOString() }}",
+          "orderBy": "id"
+        }
+      },
+      "id": "eb6102e0-60b8-45a7-9ec0-eae8c6d057f9",
+      "name": "Get Orders",
+      "type": "n8n-nodes-base.wooCommerce",
+      "typeVersion": 1,
+      "position": [
+        -20,
+        700
+      ],
+      "retryOnFail": true,
+      "executeOnce": true,
+      "credentials": {
+        "wooCommerceApi": {
+          "id": "UIUVImUpQGDmikKn",
+          "name": "WooCommerce account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const groups = {};\n\nfor (const item of items) {\n  const customer = item.json[\"customer\"];\n  const Assignment = item.json[\"Assignment\"];\n  const id = parseInt(item.json[\"ID\"], 10);\n\n  const key = `${customer}||${Assignment}`;\n\n  if (!groups[key] || id > parseInt(groups[key].json[\"ID\"], 10)) {\n    groups[key] = item;\n  }\n}\n\nreturn Object.values(groups);\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        360,
+        1220
+      ],
+      "id": "541bd4be-ea9a-40df-821d-7f7f28deba78",
+      "name": "Load a row with a higher ID into the database if there is a duplicate value in the database."
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Insert Line Item",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Get Orders",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "Load a row with a higher ID into the database if there is a duplicate value in the database.",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "new/returning customer check": {
+      "main": [
+        [
+          {
+            "node": "If (new/returning)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If (new/returning)": {
+      "main": [
+        [
+          {
+            "node": "new customer",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "returning customer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "new customer": {
+      "main": [
+        [
+          {
+            "node": "Insert Order",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "returning customer": {
+      "main": [
+        [
+          {
+            "node": "Insert Order",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Orders": {
+      "main": [
+        [
+          {
+            "node": "new/returning customer check",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert Customer Assignment": {
+      "main": [
+        []
+      ]
+    },
+    "Load a row with a higher ID into the database if there is a duplicate value in the database.": {
+      "main": [
+        [
+          {
+            "node": "Insert Customer Assignment",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "saveDataSuccessExecution": "none",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "versionId": "0c02ed2b-7955-40ba-92b1-4d54bcb69101",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "123456qerty"
+  },
+  "id": "TACkYaGFeLKi5hsP",
+  "tags": []
+}

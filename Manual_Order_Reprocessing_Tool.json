@@ -1,0 +1,1571 @@
+{
+  "name": "Manual Order Reprocessing Tool",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "462e1595-0810-4302-b831-44949d316761",
+      "name": "Manual",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -220,
+        440
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        220,
+        440
+      ],
+      "id": "bf394895-d607-4090-af97-e91b3659e8f1",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "operation": "upsert",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "orders",
+          "mode": "list",
+          "cachedResultName": "orders"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id": "={{ $('Get Orders').item.json.id }}",
+            "status": "={{ $('Get Orders').item.json.status }}",
+            "date_paid": "={{ $('Get Orders').item.json.date_paid }}",
+            "date_completed": "={{ $('Get Orders').item.json.date_completed }}",
+            "date_modified": "={{ $('Get Orders').item.json.date_modified }}",
+            "billing_first_name": "={{ $('Get Orders').item.json.billing.first_name }}",
+            "shipping_first_name": "={{ $('Get Orders').item.json.shipping.first_name }}",
+            "shipping_last_name": "={{ $('Get Orders').item.json.shipping.last_name }}",
+            "billing_last_name": "={{ $('Get Orders').item.json.billing.last_name }}",
+            "billing_company": "={{ $('Get Orders').item.json.billing.company }}",
+            "shipping_company": "={{ $('Get Orders').item.json.shipping.company }}",
+            "billing_address_1": "={{ $('Get Orders').item.json.billing.address_1 }}",
+            "billing_address_2": "={{ $('Get Orders').item.json.billing.address_2 }}",
+            "billing_state": "={{ $('Get Orders').item.json.billing.state }}",
+            "billing_city": "={{ $('Get Orders').item.json.billing.city }}",
+            "billing_postcode": "={{ $('Get Orders').item.json.billing.postcode }}",
+            "billing_email": "={{ $('Get Orders').item.json.billing.email }}",
+            "billing_phone": "={{ $('Get Orders').item.json.billing.phone }}",
+            "shipping_address_1": "={{ $('Get Orders').item.json.shipping.address_1 }}",
+            "shipping_address_2": "={{ $('Get Orders').item.json.shipping.address_2 }}",
+            "shipping_city": "={{ $('Get Orders').item.json.shipping.city }}",
+            "shipping_state": "={{ $('Get Orders').item.json.shipping.state }}",
+            "shipping_postcode": "={{ $('Get Orders').item.json.shipping.postcode }}",
+            "shipping_country": "={{ $('Get Orders').item.json.shipping.country }}",
+            "shipping_phone": "={{ $('Get Orders').item.json.shipping.phone }}",
+            "billing_country": "={{ $('Get Orders').item.json.billing.country }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "customer_id",
+              "displayName": "customer_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false,
+              "removed": true
+            },
+            {
+              "id": "created_via",
+              "displayName": "created_via",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false,
+              "removed": true
+            },
+            {
+              "id": "customer_note",
+              "displayName": "customer_note",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false,
+              "removed": true
+            },
+            {
+              "id": "number",
+              "displayName": "number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false,
+              "removed": true
+            },
+            {
+              "id": "currency",
+              "displayName": "currency",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false,
+              "removed": true
+            },
+            {
+              "id": "order_key",
+              "displayName": "order_key",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false,
+              "removed": true
+            },
+            {
+              "id": "discount_total",
+              "displayName": "discount_total",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false,
+              "removed": true
+            },
+            {
+              "id": "discount_tax",
+              "displayName": "discount_tax",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false,
+              "removed": true
+            },
+            {
+              "id": "shipping_total",
+              "displayName": "shipping_total",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false,
+              "removed": true
+            },
+            {
+              "id": "shipping_tax",
+              "displayName": "shipping_tax",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false,
+              "removed": true
+            },
+            {
+              "id": "cart_tax",
+              "displayName": "cart_tax",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false,
+              "removed": true
+            },
+            {
+              "id": "total_tax",
+              "displayName": "total_tax",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false,
+              "removed": true
+            },
+            {
+              "id": "total",
+              "displayName": "total",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false,
+              "removed": true
+            },
+            {
+              "id": "prices_include_tax",
+              "displayName": "prices_include_tax",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": false,
+              "removed": true
+            },
+            {
+              "id": "payment_method",
+              "displayName": "payment_method",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false,
+              "removed": true
+            },
+            {
+              "id": "payment_method_title",
+              "displayName": "payment_method_title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false,
+              "removed": true
+            },
+            {
+              "id": "transaction_id",
+              "displayName": "transaction_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false,
+              "removed": true
+            },
+            {
+              "id": "date_paid",
+              "displayName": "date_paid",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "cart_hash",
+              "displayName": "cart_hash",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false,
+              "removed": true
+            },
+            {
+              "id": "date_completed",
+              "displayName": "date_completed",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "set_paid",
+              "displayName": "set_paid",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": false,
+              "removed": true
+            },
+            {
+              "id": "date_created",
+              "displayName": "date_created",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": false,
+              "removed": true
+            },
+            {
+              "id": "date_modified",
+              "displayName": "date_modified",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "billing_first_name",
+              "displayName": "billing_first_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "billing_last_name",
+              "displayName": "billing_last_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "billing_company",
+              "displayName": "billing_company",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "billing_address_1",
+              "displayName": "billing_address_1",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "billing_address_2",
+              "displayName": "billing_address_2",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "billing_city",
+              "displayName": "billing_city",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "billing_state",
+              "displayName": "billing_state",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "billing_postcode",
+              "displayName": "billing_postcode",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "billing_country",
+              "displayName": "billing_country",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "billing_email",
+              "displayName": "billing_email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "billing_phone",
+              "displayName": "billing_phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "shipping_first_name",
+              "displayName": "shipping_first_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "shipping_last_name",
+              "displayName": "shipping_last_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "shipping_company",
+              "displayName": "shipping_company",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "shipping_address_1",
+              "displayName": "shipping_address_1",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "shipping_address_2",
+              "displayName": "shipping_address_2",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "shipping_city",
+              "displayName": "shipping_city",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "shipping_state",
+              "displayName": "shipping_state",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "shipping_postcode",
+              "displayName": "shipping_postcode",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "shipping_country",
+              "displayName": "shipping_country",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "shipping_phone",
+              "displayName": "shipping_phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "customer_status",
+              "displayName": "customer_status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "0d3cbca2-38f8-4981-ae67-59c040279823",
+      "name": "Insert Order",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        1040,
+        460
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "postgres": {
+          "id": "XoX5Nox5i4rg33Nh",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "order",
+        "operation": "get",
+        "orderId": "={{$json[\"id\"]}}"
+      },
+      "id": "b261bca1-e762-4bd9-8910-0adef1100c16",
+      "name": "Get Orders",
+      "type": "n8n-nodes-base.wooCommerce",
+      "typeVersion": 1,
+      "position": [
+        760,
+        460
+      ],
+      "retryOnFail": true,
+      "executeOnce": true,
+      "credentials": {
+        "wooCommerceApi": {
+          "id": "UIUVImUpQGDmikKn",
+          "name": "WooCommerce account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e2d324da-9303-4dde-97e6-e38b5c97982c",
+              "name": "id",
+              "value": "={{$json[\"id\"]}}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        480,
+        460
+      ],
+      "id": "b2223e38-8c7c-4f5d-b739-496ffcc78cb6",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "=SELECT COUNT(*) AS order_count\nFROM orders\nWHERE billing_first_name = '{{$json[\"billing\"][\"first_name\"]}}'\n  AND billing_last_name = '{{$json[\"billing\"][\"last_name\"]}}'\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        940,
+        80
+      ],
+      "id": "f25586cf-8730-49de-8bc3-3a2e4351147c",
+      "name": "new/returning customer check",
+      "credentials": {
+        "postgres": {
+          "id": "XoX5Nox5i4rg33Nh",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "5c0545e2-5959-440e-9667-3589718edeae",
+              "leftValue": "={{ $json.order_count }}",
+              "rightValue": "1",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1180,
+        80
+      ],
+      "id": "0a8d9280-0725-4d5d-b4f4-f6e5fa3640fa",
+      "name": "If (new/returning)"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "13290b27-06d5-4d90-84c7-2981133d1a94",
+              "name": "customer_status",
+              "value": "new",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1400,
+        -20
+      ],
+      "id": "111c070b-4d04-426c-85b3-d1ff8085368c",
+      "name": "new customer"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "12bf0e22-f588-4b36-8281-a6ffd0be795d",
+              "name": "customer_status",
+              "value": "returning",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1400,
+        180
+      ],
+      "id": "30b995b3-94b8-4f3c-87a7-e61e6dbec56b",
+      "name": "returning customer"
+    },
+    {
+      "parameters": {
+        "operation": "upsert",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "orders",
+          "mode": "list",
+          "cachedResultName": "orders"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id": "={{ $('Get Orders').item.json.id }}",
+            "status": "={{ $('Get Orders').item.json.status }}",
+            "customer_id": "={{ $('Get Orders').item.json.customer_id }}",
+            "currency": "={{ $('Get Orders').item.json.currency }}",
+            "order_key": "={{ $('Get Orders').item.json.order_key }}",
+            "discount_total": "={{ $('Get Orders').item.json.discount_total }}",
+            "shipping_total": "={{ $('Get Orders').item.json.shipping_total }}",
+            "discount_tax": "={{ $('Get Orders').item.json.discount_tax }}",
+            "shipping_tax": "={{ $('Get Orders').item.json.shipping_tax }}",
+            "cart_tax": "={{ $('Get Orders').item.json.cart_tax }}",
+            "total_tax": "={{ $('Get Orders').item.json.total_tax }}",
+            "total": "={{ $('Get Orders').item.json.total }}",
+            "payment_method": "={{ $('Get Orders').item.json.payment_method }}",
+            "payment_method_title": "={{ $('Get Orders').item.json.payment_method_title }}",
+            "transaction_id": "={{ $('Get Orders').item.json.transaction_id }}",
+            "date_paid": "={{ $('Get Orders').item.json.date_paid }}",
+            "cart_hash": "={{ $('Get Orders').item.json.cart_hash }}",
+            "date_completed": "={{ $('Get Orders').item.json.date_completed }}",
+            "date_created": "={{ $('Get Orders').item.json.date_created }}",
+            "date_modified": "={{ $('Get Orders').item.json.date_modified }}",
+            "billing_first_name": "={{ $('Get Orders').item.json.billing.first_name }}",
+            "shipping_first_name": "={{ $('Get Orders').item.json.shipping.first_name }}",
+            "shipping_last_name": "={{ $('Get Orders').item.json.shipping.last_name }}",
+            "billing_last_name": "={{ $('Get Orders').item.json.billing.last_name }}",
+            "billing_company": "={{ $('Get Orders').item.json.billing.company }}",
+            "shipping_company": "={{ $('Get Orders').item.json.shipping.company }}",
+            "billing_address_1": "={{ $('Get Orders').item.json.billing.address_1 }}",
+            "billing_address_2": "={{ $('Get Orders').item.json.billing.address_2 }}",
+            "billing_state": "={{ $('Get Orders').item.json.billing.state }}",
+            "billing_city": "={{ $('Get Orders').item.json.billing.city }}",
+            "billing_postcode": "={{ $('Get Orders').item.json.billing.postcode }}",
+            "billing_email": "={{ $('Get Orders').item.json.billing.email }}",
+            "billing_phone": "={{ $('Get Orders').item.json.billing.phone }}",
+            "shipping_address_1": "={{ $('Get Orders').item.json.shipping.address_1 }}",
+            "shipping_address_2": "={{ $('Get Orders').item.json.shipping.address_2 }}",
+            "shipping_city": "={{ $('Get Orders').item.json.shipping.city }}",
+            "shipping_state": "={{ $('Get Orders').item.json.shipping.state }}",
+            "shipping_postcode": "={{ $('Get Orders').item.json.shipping.postcode }}",
+            "shipping_country": "={{ $('Get Orders').item.json.shipping.country }}",
+            "shipping_phone": "={{ $('Get Orders').item.json.shipping.phone }}",
+            "billing_country": "={{ $('Get Orders').item.json.billing.country }}",
+            "customer_status": "={{ $json.customer_status }}",
+            "created_via": "={{ $('Get Orders').item.json.created_via }}",
+            "customer_note": "={{ $('Get Orders').item.json.customer_note }}",
+            "number": "={{ $('Get Orders').item.json.number }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "customer_id",
+              "displayName": "customer_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "created_via",
+              "displayName": "created_via",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false,
+              "removed": false
+            },
+            {
+              "id": "customer_note",
+              "displayName": "customer_note",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false,
+              "removed": false
+            },
+            {
+              "id": "number",
+              "displayName": "number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false,
+              "removed": false
+            },
+            {
+              "id": "currency",
+              "displayName": "currency",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "order_key",
+              "displayName": "order_key",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "discount_total",
+              "displayName": "discount_total",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "discount_tax",
+              "displayName": "discount_tax",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "shipping_total",
+              "displayName": "shipping_total",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "shipping_tax",
+              "displayName": "shipping_tax",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "cart_tax",
+              "displayName": "cart_tax",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "total_tax",
+              "displayName": "total_tax",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "total",
+              "displayName": "total",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "prices_include_tax",
+              "displayName": "prices_include_tax",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": false,
+              "removed": true
+            },
+            {
+              "id": "payment_method",
+              "displayName": "payment_method",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "payment_method_title",
+              "displayName": "payment_method_title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "transaction_id",
+              "displayName": "transaction_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "date_paid",
+              "displayName": "date_paid",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "cart_hash",
+              "displayName": "cart_hash",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "date_completed",
+              "displayName": "date_completed",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "set_paid",
+              "displayName": "set_paid",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": false,
+              "removed": true
+            },
+            {
+              "id": "date_created",
+              "displayName": "date_created",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "date_modified",
+              "displayName": "date_modified",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "billing_first_name",
+              "displayName": "billing_first_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "billing_last_name",
+              "displayName": "billing_last_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "billing_company",
+              "displayName": "billing_company",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "billing_address_1",
+              "displayName": "billing_address_1",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "billing_address_2",
+              "displayName": "billing_address_2",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "billing_city",
+              "displayName": "billing_city",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "billing_state",
+              "displayName": "billing_state",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "billing_postcode",
+              "displayName": "billing_postcode",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "billing_country",
+              "displayName": "billing_country",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "billing_email",
+              "displayName": "billing_email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "billing_phone",
+              "displayName": "billing_phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "shipping_first_name",
+              "displayName": "shipping_first_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "shipping_last_name",
+              "displayName": "shipping_last_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "shipping_company",
+              "displayName": "shipping_company",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "shipping_address_1",
+              "displayName": "shipping_address_1",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "shipping_address_2",
+              "displayName": "shipping_address_2",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "shipping_city",
+              "displayName": "shipping_city",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "shipping_state",
+              "displayName": "shipping_state",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "shipping_postcode",
+              "displayName": "shipping_postcode",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "shipping_country",
+              "displayName": "shipping_country",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "shipping_phone",
+              "displayName": "shipping_phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "customer_status",
+              "displayName": "customer_status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "0d700355-d54b-4dc0-9c49-695fab298bdd",
+      "name": "Insert Order1",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        1660,
+        80
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "postgres": {
+          "id": "XoX5Nox5i4rg33Nh",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "upsert",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "order_line_items",
+          "mode": "list",
+          "cachedResultName": "order_line_items"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id": "={{ $json.line_items.id }}",
+            "order_id": "={{ $json.id }}",
+            "product_id": "={{ $json.line_items.product_id }}",
+            "variation_id": "={{ $json.line_items.variation_id }}",
+            "quantity": "={{ $json.line_items.quantity }}",
+            "subtotal": "={{ $json.line_items.subtotal }}",
+            "subtotal_tax": "={{ $json.line_items.subtotal_tax }}",
+            "total": "={{ $json.line_items.total }}",
+            "total_tax": "={{ $json.line_items.total_tax }}",
+            "price": "={{ $json.line_items.price }}",
+            "name": "={{ $json.line_items.name }}",
+            "tax_class": "={{ $json.line_items.tax_class }}",
+            "sku": "={{ $json.line_items.sku }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "order_id",
+              "displayName": "order_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "product_id",
+              "displayName": "product_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "variation_id",
+              "displayName": "variation_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "quantity",
+              "displayName": "quantity",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "tax_class",
+              "displayName": "tax_class",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "subtotal",
+              "displayName": "subtotal",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "subtotal_tax",
+              "displayName": "subtotal_tax",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "total",
+              "displayName": "total",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "total_tax",
+              "displayName": "total_tax",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "sku",
+              "displayName": "sku",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "price",
+              "displayName": "price",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "bd421d9f-483c-4d84-b637-d3db11ce498d",
+      "name": "Insert Line Item",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        1140,
+        660
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "XoX5Nox5i4rg33Nh",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "=line_items",
+        "include": "selectedOtherFields",
+        "fieldsToInclude": "id",
+        "options": {}
+      },
+      "id": "57baff52-c60a-4230-87cb-ada812f4f849",
+      "name": "Split Out",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        960,
+        660
+      ],
+      "executeOnce": false
+    },
+    {
+      "parameters": {
+        "jsCode": "return [\n  { json: { id: 100001 } },\n  { json: { id: 100002 } },\n  { json: { id: 100003 } },\n  { json: { id: 100004 } },\n  { json: { id: 100005 } }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        0,
+        440
+      ],
+      "id": "87c81dd9-db32-4aec-9712-2ecf968e6300",
+      "name": "Enter the number of the defective order"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Manual": {
+      "main": [
+        [
+          {
+            "node": "Enter the number of the defective order",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Orders": {
+      "main": [
+        [
+          {
+            "node": "new/returning customer check",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Insert Order",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert Order": {
+      "main": [
+        []
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Get Orders",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "new/returning customer check": {
+      "main": [
+        [
+          {
+            "node": "If (new/returning)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If (new/returning)": {
+      "main": [
+        [
+          {
+            "node": "new customer",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "returning customer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "new customer": {
+      "main": [
+        [
+          {
+            "node": "Insert Order1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "returning customer": {
+      "main": [
+        [
+          {
+            "node": "Insert Order1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Insert Line Item",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert Line Item": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Enter the number of the defective order": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "bf35e080-049e-4b46-9a9d-8937602edb0d",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "123456qerty"
+  },
+  "id": "2zW8NAdiz492BmqO",
+  "tags": []
+}

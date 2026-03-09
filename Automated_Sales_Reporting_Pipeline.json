@@ -1,0 +1,2316 @@
+{
+  "name": "Automated Sales Reporting Pipeline",
+  "nodes": [
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0b28ff24-1189-419b-b1ae-4c95b592c3d1",
+              "name": "total",
+              "value": "={{ new Intl.NumberFormat('pl-PL').format($json.product_total) + ' zł' }}",
+              "type": "string"
+            },
+            {
+              "id": "b0d72292-4b30-4558-afd9-3a1a7f41a403",
+              "name": "formatted_date_created",
+              "value": "={{ new Date($json[\"date_created\"]).toISOString().replace(\"T\", \" \").slice(0, 19) }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        300,
+        440
+      ],
+      "id": "74a727bc-b892-432b-886d-81fb9e3e6ca1",
+      "name": "Format"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "861a3157-72fb-40e5-885f-7c19477e6eeb",
+              "name": "Date",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "c57fc0f8-a8a6-474c-ab97-a77b6371c4ca",
+              "name": "Order ID",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "b78e7024-c4f0-4c19-a359-547301ca5a23",
+              "name": "Status",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "58865a4f-f640-419d-98f1-f3956e2ea276",
+              "name": "Customer",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "eb897802-0de8-415c-872f-750fd41b8c8a",
+              "name": "Customer Type",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "4b70da79-ce62-4184-b7a9-33ccc48187a8",
+              "name": "Product",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "09374a78-eb29-437c-ac92-1842cc6c4641",
+              "name": "Products sold",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "68c9b75a-5f5e-4265-8931-1c5318721352",
+              "name": "Net sales",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "117918ea-ec16-436e-a1a5-2eab7e20350a",
+              "name": "Lead source",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "9880df1a-1a82-4b2e-b8c9-c2a6048c83ed",
+              "name": "Assignment",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "6f7beb90-d86b-4aee-8993-06354fc0dbc9",
+              "name": "Number of promotional packages",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -580,
+        440
+      ],
+      "id": "95712fb6-7b95-4115-bfaa-c17868eebe7b",
+      "name": "Headings 'Order list'",
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "={{$node[\"Creating the 'Total_Sales' file\"].json.spreadsheetId}}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "={{ $('Creating the \\'Total_Sales\\' file').item.json.sheets[3].properties.sheetId }}",
+          "mode": "id"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Date",
+              "displayName": "Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Order ID",
+              "displayName": "Order ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Customer",
+              "displayName": "Customer",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Customer Type",
+              "displayName": "Customer Type",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Product",
+              "displayName": "Product",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Products sold",
+              "displayName": "Products sold",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Net sales",
+              "displayName": "Net sales",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Lead source",
+              "displayName": "Lead source",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Assignment",
+              "displayName": "Assignment",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Number of promotional packages",
+              "displayName": "Number of promotional packages",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        -420,
+        440
+      ],
+      "id": "26357533-d277-4cd6-a978-dcccd0c40b51",
+      "name": "Inserting headers 'Order list'",
+      "retryOnFail": true,
+      "waitBetweenTries": 2500,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ISQO8uulbOvYyDIs",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "={{$node[\"Creating the 'Total_Sales' file\"].json.spreadsheetId}}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "={{ $('Creating the \\'Total_Sales\\' file').item.json.sheets[3].properties.sheetId }}",
+          "mode": "id"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Date": "={{ $json.formatted_date_created }}",
+            "Net sales": "={{ $json.total }}",
+            "Status": "={{ $('Data_Import2').item.json.status }}",
+            "Customer Type": "={{ $('Data_Import2').item.json.customer_status }}",
+            "Products sold": "={{ $('Data_Import2').item.json.quantity }}",
+            "Lead source": "={{ $('Data_Import2').item.json.Key_Account_Manager_E-commerce_Platform }}",
+            "Assignment": "={{ $('Data_Import2').item.json.Assignment }}",
+            "Number of promotional packages": "={{ $('Data_Import2').item.json.number_of_promotional_products }}",
+            "Product": "={{ $('Data_Import2').item.json.product_name }}",
+            "Customer": "={{ $('Data_Import2').item.json.full_name }}",
+            "Order ID": "={{ $('Data_Import2').item.json.id }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Date",
+              "displayName": "Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Order ID",
+              "displayName": "Order ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Customer",
+              "displayName": "Customer",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Customer Type",
+              "displayName": "Customer Type",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Product",
+              "displayName": "Product",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Products sold",
+              "displayName": "Products sold",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Net sales",
+              "displayName": "Net sales",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Lead source",
+              "displayName": "Lead source",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Assignment",
+              "displayName": "Assignment",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Number of promotional packages",
+              "displayName": "Number of promotional packages",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        460,
+        440
+      ],
+      "id": "f84a3ded-f8ff-471f-bb8b-f75b0d429a80",
+      "name": "Inserting data 'Order_List'",
+      "retryOnFail": true,
+      "waitBetweenTries": 2500,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ISQO8uulbOvYyDIs",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "spreadsheet",
+        "title": "={{$node[\"Transfer of dates\"].json.start_date.slice(0,10) + ' - ' + $node[\"Transfer of dates\"].json.end_date.slice(0,10) + ' całość'}}",
+        "sheetsUi": {
+          "sheetValues": [
+            {
+              "title": "Dashboard"
+            },
+            {
+              "title": "YTD customer ranking"
+            },
+            {
+              "title": "customer ranking for a given period"
+            },
+            {
+              "title": "Order list"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        -880,
+        460
+      ],
+      "id": "530110ba-5a92-4f38-8a08-b24108a98818",
+      "name": "Creating the 'Total_Sales' file",
+      "executeOnce": true,
+      "retryOnFail": true,
+      "waitBetweenTries": 2500,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ISQO8uulbOvYyDIs",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const sheetId = $('Creating the \\'Total_Sales\\' file').first().json.sheets[0].properties.sheetId;\n\n// === BLOCK 1: headers + column width ===\nconst headers = [\n  { text: \"Product_A\", rowIndex: 0 },\n  { text: \"Product_B\", rowIndex: 33 },\n  { text: \"Product_C\", rowIndex: 66 },\n  { text: \"Product_D\", rowIndex: 99 },\n  { text: \"Product_O\", rowIndex: 132 },\n  { text: \"Product_I\", rowIndex: 165 },\n  { text: \"Product_F\", rowIndex: 198 },\n];\n\nconst headerRequests = headers.flatMap(({ text, rowIndex }) => [\n  {\n    mergeCells: {\n      range: {\n        sheetId,\n        startRowIndex: rowIndex,\n        endRowIndex: rowIndex + 1,\n        startColumnIndex: 0,\n        endColumnIndex: 6,\n      },\n      mergeType: \"MERGE_ALL\",\n    },\n  },\n  {\n    repeatCell: {\n      range: {\n        sheetId,\n        startRowIndex: rowIndex,\n        endRowIndex: rowIndex + 1,\n        startColumnIndex: 0,\n        endColumnIndex: 6,\n      },\n      cell: {\n        userEnteredValue: { stringValue: text },\n        userEnteredFormat: {\n          backgroundColor: { red: 0.45, green: 0.62, blue: 0.83 },\n          textFormat: { bold: true, italic: true },\n          horizontalAlignment: \"CENTER\",\n          verticalAlignment: \"MIDDLE\",\n          borders: {\n            top: { style: \"SOLID\" },\n            bottom: { style: \"SOLID\" },\n            left: { style: \"SOLID\" },\n            right: { style: \"SOLID\" },\n          },\n        },\n      },\n      fields:\n        \"userEnteredValue,userEnteredFormat(backgroundColor,textFormat,horizontalAlignment,verticalAlignment,borders)\",\n    },\n  },\n]);\n\nconst columnWidthRequests = [\n\n  // Column width settings\n  {\n    updateDimensionProperties: {\n      range: {\n        sheetId,\n        dimension: \"COLUMNS\",\n        startIndex: 0,\n        endIndex: 1,\n      },\n      properties: { pixelSize: 165 },\n      fields: \"pixelSize\",\n    },\n  },\n  {\n    updateDimensionProperties: {\n      range: {\n        sheetId,\n        dimension: \"COLUMNS\",\n        startIndex: 1,\n        endIndex: 26,\n      },\n      properties: { pixelSize: 180 },\n      fields: \"pixelSize\",\n    },\n  },\n  ];\n\nconst extraMergesAndHeaders = [\n  {\n    mergeCells: {\n      range: convertA1ToRange(\"H1:I1\", sheetId),\n      mergeType: \"MERGE_ALL\",\n    },\n  },\n  {\n    repeatCell: {\n      range: convertA1ToRange(\"H1:I1\", sheetId),\n      cell: {\n        userEnteredValue: { stringValue: \"Sales value by Product Categories\" },\n        userEnteredFormat: {\n          backgroundColor: { red: 0.58, green: 0.7, blue: 0.84 },\n          textFormat: { bold: true },\n          horizontalAlignment: \"CENTER\",\n          verticalAlignment: \"MIDDLE\",\n        },\n      },\n      fields: \"userEnteredValue,userEnteredFormat(backgroundColor,textFormat,horizontalAlignment,verticalAlignment)\",\n    },\n  },\n\n  {\n    mergeCells: {\n      range: convertA1ToRange(\"H12:I12\", sheetId),\n      mergeType: \"MERGE_ALL\",\n    },\n  },\n  {\n    repeatCell: {\n      range: convertA1ToRange(\"H12:I12\", sheetId),\n      cell: {\n        userEnteredValue: { stringValue: \"Value of orders in progress\" },\n        userEnteredFormat: {\n          backgroundColor: { red: 0.58, green: 0.7, blue: 0.84 },\n          textFormat: { bold: true },\n          horizontalAlignment: \"CENTER\",\n          verticalAlignment: \"MIDDLE\",\n        },\n      },\n      fields: \"userEnteredValue,userEnteredFormat(backgroundColor,textFormat,horizontalAlignment,verticalAlignment)\",\n    },\n  },\n];\n\n// === BLOCK 2: colors, borders, backgrounds ===\nfunction convertA1ToRange(a1, sheetId) {\n  const col = a1.match(/[A-Z]+/g);\n  const row = a1.match(/\\d+/g).map(Number);\n  const colIdx = col.map(c => c.split('').reduce((acc, l) => acc * 26 + (l.charCodeAt(0) - 64), 0) - 1);\n  return {\n    sheetId,\n    startRowIndex: row.length === 2 ? row[0] - 1 : row[0] - 1,\n    endRowIndex: row.length === 2 ? row[1] : row[0],\n    startColumnIndex: colIdx.length === 2 ? colIdx[0] : colIdx[0],\n    endColumnIndex: colIdx.length === 2 ? colIdx[1] + 1 : colIdx[0] + 1,\n  };\n}\n\nconst borderRanges = [\n  \"A4:F7\",\"A11:F13\",\"A17:F20\",\"A24:T27\",\"A29:T31\",\"A37:F40\",\"A44:F46\",\n  \"A50:F53\",\"A57:T60\",\"A62:T64\",\"A70:F73\",\"A77:F79\",\"A83:F86\",\"A90:T93\",\n  \"A95:T97\",\"A103:F106\",\"A110:F112\",\"A116:F119\",\"A123:T126\",\"A128:T130\",\n  \"A136:F139\",\"A143:F145\",\"A149:F152\",\"A156:T159\",\"A161:T163\",\"A169:F172\",\n  \"A176:F178\",\"A182:F185\",\"A189:T192\",\"A194:T196\",\"A202:F205\",\"A209:F211\",\n  \"A215:F218\",\"A222:T225\",\"A227:T229\",\"H13:I20\",\"H2:I9\"\n];\n\nconst lightBlue1 = [\n  \"A4:E4\",\"A5:A7\",\"A11:E11\",\"A12:A13\",\"A17:E17\",\"A18:A20\",\"A24:A27\",\"A29:A31\",\n  \"B24:T24\",\"A37:E37\",\"A38:A40\",\"A44:E44\",\"A45:A46\",\"A50:E50\",\"A51:A53\",\n  \"A57:T57\",\"A58:A60\",\"A62:A64\",\"A70:E70\",\"A71:A73\",\"A77:E77\",\"A78:A79\",\n  \"A83:E83\",\"A84:A86\",\"A90:T90\",\"A91:A93\",\"A95:A97\",\"A103:E103\",\"A104:A106\",\n  \"A110:E110\",\"A111:A112\",\"A116:E116\",\"A117:A119\",\"A123:T123\",\"A124:A126\",\n  \"A128:A130\",\"A136:E136\",\"A137:A139\",\"A143:E143\",\"A144:A145\",\"A149:E149\",\n  \"A150:A152\",\"A156:T156\",\"A157:A159\",\"A161:A163\",\"A169:E169\",\"A170:A172\",\n  \"A176:E176\",\"A177:A178\",\"A182:E182\",\"A183:A185\",\"A189:T189\",\"A190:A192\",\n  \"A194:A196\",\"A202:E202\",\"A203:A205\",\"A209:E209\",\"A210:A211\",\"A215:E215\",\n  \"A216:A218\",\"A222:T222\",\"A223:A225\",\"A227:A229\",\n  \"A3:F3\",\"A10:F10\",\"A16:F16\",\"A23:F23\",\"A36:F36\",\"A43:F43\",\"A49:F49\",\"A56:F56\",\n  \"A69:F69\",\"A76:F76\",\"A82:F82\",\"A89:F89\",\"A102:F102\",\"A109:F109\",\"A115:F115\",\"A122:F122\",\n  \"A135:F135\",\"A142:F142\",\"A148:F148\",\"A155:F155\",\"A168:F168\",\"A175:F175\",\"A181:F181\",\n  \"A188:F188\",\"A201:F201\",\"A208:F208\",\"A214:F214\",\"A221:F221\"\n];\n\nconst lightBlue2 = [\n  \"F4:F7\",\"F11:F13\",\"F17:F20\",\"H13:H20\",\"H2:H9\",\"T24:T27\",\"T29:T31\",\n  \"F37:F40\",\"F44:F46\",\"F50:F53\",\"T57:T60\",\"T62:T64\",\"F70:F73\",\"F77:F79\",\n  \"F83:F86\",\"T90:T93\",\"T95:T97\",\"F103:F106\",\"F110:F112\",\"F116:F119\",\n  \"T123:T126\",\"T128:T130\",\"F136:F139\",\"F143:F145\",\"F149:F152\",\"T156:T159\",\n  \"T161:T163\",\"F169:F172\",\"F176:F178\",\"F182:F185\",\"T189:T192\",\"T194:T196\",\n  \"F202:F205\",\"F209:F211\",\"F215:F218\",\"T222:T225\",\"T227:T229\"\n];\n\nconst paleBlue = [\n  \"I2:I9\",\"I13:I20\",\"B5:E7\",\"B12:E13\",\"B18:E20\",\"B25:S27\",\"B29:S31\",\n  \"B38:E40\",\"B45:E46\",\"B51:E53\",\"B58:S60\",\"B62:S64\",\"B71:E73\",\"B78:E79\",\n  \"B84:E86\",\"B91:S93\",\"B95:S97\",\"B104:E106\",\"B111:E112\",\"B117:E119\",\n  \"B124:S126\",\"B128:S130\",\"B137:E139\",\"B144:E145\",\"B150:E152\",\"B157:S159\",\n  \"B161:S163\",\"B170:E172\",\"B177:E178\",\"B183:E185\",\"B190:S192\",\"B194:S196\",\n  \"B203:E205\",\"B210:E211\",\"B216:E218\",\"B223:S225\",\"B227:S229\"\n];\n\nconst borderRequests = borderRanges.map(range => ({\n  repeatCell: {\n    range: convertA1ToRange(range, sheetId),\n    cell: {\n      userEnteredFormat: {\n        horizontalAlignment: \"CENTER\",\n        verticalAlignment: \"MIDDLE\",\n        borders: {\n          top: { style: \"SOLID\" },\n          bottom: { style: \"SOLID\" },\n          left: { style: \"SOLID\" },\n          right: { style: \"SOLID\" },\n        },\n      },\n    },\n    fields: \"userEnteredFormat(horizontalAlignment,verticalAlignment,borders)\",\n  },\n}));\n\nfunction makeColorRequest(ranges, color, bold = true) {\n  return ranges.map(range => ({\n    repeatCell: {\n      range: convertA1ToRange(range, sheetId),\n      cell: {\n        userEnteredFormat: {\n          backgroundColor: color,\n          textFormat: { bold },\n        },\n      },\n      fields: \"userEnteredFormat(backgroundColor,textFormat.bold)\",\n    },\n  }));\n}\n\n\nconst paleBlueBold = [\"I9\", \"I20\"];\nconst paleBlueNoBold = paleBlue.filter(r => !paleBlueBold.includes(r.trim()));\n\nconst colorRequests = [\n  ...makeColorRequest(lightBlue1, { red: 0.72, green: 0.8, blue: 0.89 }),\n  ...makeColorRequest(lightBlue2, { red: 0.58, green: 0.7, blue: 0.84 }),\n  ...makeColorRequest(paleBlueNoBold, { red: 0.86, green: 0.9, blue: 0.94 }, false),\n  ...makeColorRequest(paleBlueBold, { red: 0.86, green: 0.9, blue: 0.94 }, true),\n];\n\n\n\nreturn {\n  requests: [\n    ...columnWidthRequests,\n    ...extraMergesAndHeaders,\n    ...headerRequests,\n    ...borderRequests,\n    ...colorRequests,\n  ],\n};\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -580,
+        160
+      ],
+      "id": "c44386a2-7cff-4676-be9b-b81edb37e8ea",
+      "name": "Formatting 'Report' | BLOCK 1 - style"
+    },
+    {
+      "parameters": {
+        "jsCode": "const sheetId = $('Creating the \\'Total_Sales\\' file').first().json.sheets[0].properties.sheetId;\n\nfunction colToIndex(col) {\n  let idx = 0;\n  for (let i = 0; i < col.length; i++) {\n    idx = idx * 26 + (col.charCodeAt(i) - 64);\n  }\n  return idx - 1;\n}\n\nfunction parseRange(a1, sheetId) {\n  const match = a1.match(/^([A-Z]+)(\\d+):([A-Z]+)(\\d+)$/);\n  if (!match) return null;\n  const [, colStart, rowStart, colEnd, rowEnd] = match;\n  return {\n    sheetId,\n    startRowIndex: parseInt(rowStart) - 1,\n    endRowIndex: parseInt(rowEnd),\n    startColumnIndex: colToIndex(colStart),\n    endColumnIndex: colToIndex(colEnd) + 1,\n  };\n}\n\nconst mergedCells = [\n  [\"A3:F3\", \"Product_A broken down into Customer Type\"],\n  [\"A10:F10\", \"Sales channels Product_A broken down into Customer Type\"],\n  [\"A16:F16\", \"Product_A broken down by sales channels\"],\n  [\"A23:F23\", \"Product_A broken down into sales areas\"],\n  [\"A36:F36\", \"Product_B broken down into Customer Type\"],\n  [\"A43:F43\", \"Sales channels Product_B broken down into Customer Type\"],\n  [\"A49:F49\", \"Product_B broken down by sales channels\"],\n  [\"A56:F56\", \"Product_B broken down into sales areas\"],\n  [\"A69:F69\", \"Product_C broken down into Customer Type\"],\n  [\"A76:F76\", \"Sales channels Product_C broken down into Customer Type\"],\n  [\"A82:F82\", \"Product_C broken down by sales channels\"],\n  [\"A89:F89\", \"Product_C broken down into sales areas\"],\n  [\"A102:F102\", \"Product_D broken down into Customer Type\"],\n  [\"A109:F109\", \"Sales channels Product_D broken down into Customer Type\"],\n  [\"A115:F115\", \"Product_D broken down by sales channels\"],\n  [\"A122:F122\", \"Product_D broken down into sales areas\"],\n  [\"A135:F135\", \"Product_D broken down into Customer Type\"],\n  [\"A142:F142\", \"Sales channels Product_D broken down into Customer Type\"],\n  [\"A148:F148\", \"Product_D broken down by sales channels\"],\n  [\"A155:F155\", \"Product_D broken down into sales areas\"],\n  [\"A168:F168\", \"Product_E broken down into Customer Type\"],\n  [\"A175:F175\", \"Sales channels Product_E broken down into Customer Type\"],\n  [\"A181:F181\", \"Product_E broken down by sales channels\"],\n  [\"A188:F188\", \"Product_E broken down into sales areas\"],\n  [\"A201:F201\", \"Product_F broken down into Customer Type\"],\n  [\"A208:F208\", \"Sales channels Product_F broken down into Customer Type\"],\n  [\"A214:F214\", \"Product_F broken down by sales channels\"],\n  [\"A221:F221\", \"Product_F broken down into sales areas\"],\n  [\"B4:C4\", \"New Customers\"],\n  [\"D4:E4\", \"Returning Customers\"],\n  [\"B11:C11\", \"New Customers\"],\n  [\"D11:E11\", \"Returning Customers\"],\n  [\"B37:C37\", \"New Customers\"],\n  [\"D37:E37\", \"Returning Customers\"],\n  [\"B44:C44\", \"New Customers\"],\n  [\"D44:E44\", \"Returning Customers\"],\n  [\"B70:C70\", \"New Customers\"],\n  [\"D70:E70\", \"Returning Customers\"],\n  [\"B77:C77\", \"New Customers\"],\n  [\"D77:E77\", \"Returning Customers\"],\n  [\"B103:C103\", \"New Customers\"],\n  [\"D103:E103\", \"Returning Customers\"],\n  [\"B110:C110\", \"New Customers\"],\n  [\"D110:E110\", \"Returning Customers\"],\n  [\"B136:C136\", \"New Customers\"],\n  [\"D136:E136\", \"Returning Customers\"],\n  [\"B143:C143\", \"New Customers\"],\n  [\"D143:E143\", \"Returning Customers\"],\n  [\"B169:C169\", \"New Customers\"],\n  [\"D169:E169\", \"Returning Customers\"],\n  [\"B176:C176\", \"New Customers\"],\n  [\"D176:E176\", \"Returning Customers\"],\n  [\"B202:C202\", \"New Customers\"],\n  [\"D202:E202\", \"Returning Customers\"],\n  [\"B209:C209\", \"New Customers\"],\n  [\"D209:E209\", \"Returning Customers\"],\n  [\"B24:C24\", \"Sales_Rep_1\"],\n  [\"D24:E24\", \"Sales_Rep_2\"],\n  [\"F24:G24\", \"Sales_Rep_3\"],\n  [\"H24:I24\", \"Sales_Rep_4\"],\n  [\"J24:K24\", \"Sales_Rep_5\"],\n  [\"L24:M24\", \"Sales_Rep_6\"],\n  [\"N24:O24\", \"Sales_Rep_7\"],\n  [\"P24:Q24\", \"Sales_Rep_8\"],\n  [\"R24:S24\", \"E-commerce_Platform\"],\n  [\"B57:C57\", \"Sales_Rep_1\"],\n  [\"D57:E57\", \"Sales_Rep_2\"],\n  [\"F57:G57\", \"Sales_Rep_3\"],\n  [\"H57:I57\", \"Sales_Rep_4\"],\n  [\"J57:K57\", \"Sales_Rep_5\"],\n  [\"L57:M57\", \"Sales_Rep_6\"],\n  [\"N57:O57\", \"Sales_Rep_7\"],\n  [\"P57:Q57\", \"Sales_Rep_8\"],\n  [\"R57:S57\", \"E-commerce_Platform\"],\n  [\"B90:C90\", \"Sales_Rep_1\"],\n  [\"D90:E90\", \"Sales_Rep_2\"],\n  [\"F90:G90\", \"Sales_Rep_3\"],\n  [\"H90:I90\", \"Sales_Rep_4\"],\n  [\"J90:K90\", \"Sales_Rep_5\"],\n  [\"L90:M90\", \"Sales_Rep_6\"],\n  [\"N90:O90\", \"Sales_Rep_7\"],\n  [\"P90:Q90\", \"Sales_Rep_8\"],\n  [\"R90:S90\", \"E-commerce_Platform\"],\n  [\"B123:C123\", \"Sales_Rep_1\"],\n  [\"D123:E123\", \"Sales_Rep_2\"],\n  [\"F123:G123\", \"Sales_Rep_3\"],\n  [\"H123:I123\", \"Sales_Rep_4\"],\n  [\"J123:K123\", \"Sales_Rep_5\"],\n  [\"L123:M123\", \"Sales_Rep_6\"],\n  [\"N123:O123\", \"Sales_Rep_7\"],\n  [\"P123:Q123\", \"Sales_Rep_8\"],\n  [\"R123:S123\", \"E-commerce_Platform\"],\n  [\"B156:C156\", \"Sales_Rep_1\"],\n  [\"D156:E156\", \"Sales_Rep_2\"],\n  [\"F156:G156\", \"Sales_Rep_3\"],\n  [\"H156:I156\", \"Sales_Rep_4\"],\n  [\"J156:K156\", \"Sales_Rep_5\"],\n  [\"L156:M156\", \"Sales_Rep_6\"],\n  [\"N156:O156\", \"Sales_Rep_7\"],\n  [\"P156:Q156\", \"Sales_Rep_8\"],\n  [\"R156:S156\", \"E-commerce_Platform\"],\n  [\"B189:C189\", \"Sales_Rep_1\"],\n  [\"D189:E189\", \"Sales_Rep_2\"],\n  [\"F189:G189\", \"Sales_Rep_3\"],\n  [\"H189:I189\", \"Sales_Rep_4\"],\n  [\"J189:K189\", \"Sales_Rep_5\"],\n  [\"L189:M189\", \"Sales_Rep_6\"],\n  [\"N189:O189\", \"Sales_Rep_7\"],\n  [\"P189:Q189\", \"Sales_Rep_8\"],\n  [\"R189:S189\", \"E-commerce_Platform\"],\n  [\"B222:C222\", \"Sales_Rep_1\"],\n  [\"D222:E222\", \"Sales_Rep_2\"],\n  [\"F222:G222\", \"Sales_Rep_3\"],\n  [\"H222:I222\", \"Sales_Rep_4\"],\n  [\"J222:K222\", \"Sales_Rep_5\"],\n  [\"L222:M222\", \"Sales_Rep_6\"],\n  [\"N222:O222\", \"Sales_Rep_7\"],\n  [\"P222:Q222\", \"Sales_Rep_8\"],\n  [\"R222:S222\", \"E-commerce_Platform\"],\n  [\"D17:E17\", \"Key_Account_Manager\"],\n  [\"B17:C17\", \"E-commerce_Platform\"],\n  [\"D50:E50\", \"Key_Account_Manager\"],\n  [\"B50:C50\", \"E-commerce_Platform\"],\n  [\"D83:E83\", \"Key_Account_Manager\"],\n  [\"B83:C83\", \"E-commerce_Platform\"],\n  [\"D116:E116\", \"Key_Account_Manager\"],\n  [\"B116:C116\", \"E-commerce_Platform\"],\n  [\"D149:E149\", \"Key_Account_Manager\"],\n  [\"B149:C149\", \"E-commerce_Platform\"],\n  [\"D182:E182\", \"Key_Account_Manager\"],\n  [\"B182:C182\", \"E-commerce_Platform\"],\n  [\"D215:E215\", \"Key_Account_Manager\"],\n  [\"B215:C215\", \"E-commerce_Platform\"]\n];\n\n\nconst singleCells = [\n  [\"H2\", \"Product_A\"],\n  [\"H13\", \"Product_A\"],\n  [\"H3\", \"Product_B\"],\n  [\"H14\", \"Product_B\"],\n  [\"H4\", \"Product_C\"],\n  [\"H15\", \"Product_C\"],\n  [\"H5\", \"Product_D\"],\n  [\"H16\", \"Product_D\"],\n  [\"H6\", \"Product_O\"],\n  [\"H17\", \"Product_O\"],\n  [\"H7\", \"Product_I\"],\n  [\"H18\", \"Product_I\"],\n  [\"H8\", \"Product_F\"],\n  [\"H19\", \"Product_F\"],\n  [\"H9\", \"Total\"],\n  [\"H20\", \"Total\"],\n  [\"T24\", \"Total\"],\n  [\"T57\", \"Total\"],\n  [\"T90\", \"Total\"],\n  [\"T123\", \"Total\"],\n  [\"T156\", \"Total\"],\n  [\"T189\", \"Total\"],\n  [\"T222\", \"Total\"],\n  [\"F4\", \"Total\"],\n  [\"F11\", \"Total\"],\n  [\"F17\", \"Total\"],\n  [\"F37\", \"Total\"],\n  [\"F44\", \"Total\"],\n  [\"F50\", \"Total\"],\n  [\"F70\", \"Total\"],\n  [\"F77\", \"Total\"],\n  [\"F83\", \"Total\"],\n  [\"F103\", \"Total\"],\n  [\"F110\", \"Total\"],\n  [\"F116\", \"Total\"],\n  [\"F136\", \"Total\"],\n  [\"F143\", \"Total\"],\n  [\"F149\", \"Total\"],\n  [\"F169\", \"Total\"],\n  [\"F176\", \"Total\"],\n  [\"F182\", \"Total\"],\n  [\"F202\", \"Total\"],\n  [\"F209\", \"Total\"],\n  [\"F215\", \"Total\"],\n  [\"A5\", \"Number of orders\"],\n  [\"A18\", \"Number of orders\"],\n  [\"A25\", \"Number of orders\"],\n  [\"A38\", \"Number of orders\"],\n  [\"A51\", \"Number of orders\"],\n  [\"A58\", \"Number of orders\"],\n  [\"A71\", \"Number of orders\"],\n  [\"A84\", \"Number of orders\"],\n  [\"A91\", \"Number of orders\"],\n  [\"A104\", \"Number of orders\"],\n  [\"A117\", \"Number of orders\"],\n  [\"A124\", \"Number of orders\"],\n  [\"A137\", \"Number of orders\"],\n  [\"A150\", \"Number of orders\"],\n  [\"A157\", \"Number of orders\"],\n  [\"A170\", \"Number of orders\"],\n  [\"A183\", \"Number of orders\"],\n  [\"A190\", \"Number of orders\"],\n  [\"A203\", \"Number of orders\"],\n  [\"A216\", \"Number of orders\"],\n  [\"A223\", \"Number of orders\"],\n  [\"A6\", \"Number of Products\"],\n  [\"A19\", \"Number of Products\"],\n  [\"A26\", \"Number of Products\"],\n  [\"A39\", \"Number of Products\"],\n  [\"A52\", \"Number of Products\"],\n  [\"A59\", \"Number of Products\"],\n  [\"A72\", \"Number of Products\"],\n  [\"A85\", \"Number of Products\"],\n  [\"A92\", \"Number of Products\"],\n  [\"A105\", \"Number of Products\"],\n  [\"A118\", \"Number of Products\"],\n  [\"A125\", \"Number of Products\"],\n  [\"A138\", \"Number of Products\"],\n  [\"A151\", \"Number of Products\"],\n  [\"A158\", \"Number of Products\"],\n  [\"A171\", \"Number of Products\"],\n  [\"A184\", \"Number of Products\"],\n  [\"A191\", \"Number of Products\"],\n  [\"A204\", \"Number of Products\"],\n  [\"A217\", \"Number of Products\"],\n  [\"A224\", \"Number of Products\"],\n  [\"A7\", \"Sales value\"],\n  [\"A20\", \"Sales value\"],\n  [\"A27\", \"Sales value\"],\n  [\"A40\", \"Sales value\"],\n  [\"A53\", \"Sales value\"],\n  [\"A60\", \"Sales value\"],\n  [\"A73\", \"Sales value\"],\n  [\"A86\", \"Sales value\"],\n  [\"A93\", \"Sales value\"],\n  [\"A106\", \"Sales value\"],\n  [\"A119\", \"Sales value\"],\n  [\"A126\", \"Sales value\"],\n  [\"A139\", \"Sales value\"],\n  [\"A152\", \"Sales value\"],\n  [\"A159\", \"Sales value\"],\n  [\"A172\", \"Sales value\"],\n  [\"A185\", \"Sales value\"],\n  [\"A192\", \"Sales value\"],\n  [\"A205\", \"Sales value\"],\n  [\"A218\", \"Sales value\"],\n  [\"A225\", \"Sales value\"],\n  [\"A227\", \"Promotional products\"],\n  [\"A194\", \"Promotional products\"],\n  [\"A161\", \"Promotional products\"],\n  [\"A128\", \"Promotional products\"],\n  [\"A95\", \"Promotional products\"],\n  [\"A62\", \"Promotional products\"],\n  [\"A29\", \"Promotional products\"],\n  [\"A228\", \"Full-price products\"],\n  [\"A195\", \"Full-price products\"],\n  [\"A162\", \"Full-price products\"],\n  [\"A129\", \"Full-price products\"],\n  [\"A96\", \"Full-price products\"],\n  [\"A63\", \"Full-price products\"],\n  [\"A30\", \"Full-price products\"],\n  [\"A229\", \"Number of sales centers\"],\n  [\"A196\", \"Number of sales centers\"],\n  [\"A163\", \"Number of sales centers\"],\n  [\"A130\", \"Number of sales centers\"],\n  [\"A97\", \"Number of sales centers\"],\n  [\"A64\", \"Number of sales centers\"],\n  [\"A31\", \"Number of sales centers\"],\n  [\"A12\", \"Key_Account_Manager\"],\n  [\"A45\", \"Key_Account_Manager\"],\n  [\"A78\", \"Key_Account_Manager\"],\n  [\"A111\", \"Key_Account_Manager\"],\n  [\"A144\", \"Key_Account_Manager\"],\n  [\"A177\", \"Key_Account_Manager\"],\n  [\"A210\", \"Key_Account_Manager\"],\n\n  [\"A13\", \"WWW\"],\n  [\"A46\", \"WWW\"],\n  [\"A79\", \"WWW\"],\n  [\"A112\", \"WWW\"],\n  [\"A145\", \"WWW\"],\n  [\"A178\", \"WWW\"],\n  [\"A211\", \"WWW\"]\n];\n\n\nconst requests = [];\n\nfor (const [range, text] of mergedCells) {\n  const r = parseRange(range, sheetId);\n  requests.push({\n    mergeCells: {\n      range: r,\n      mergeType: \"MERGE_ALL\",\n    },\n  });\n  requests.push({\n    repeatCell: {\n      range: r,\n      cell: {\n        userEnteredValue: { stringValue: text },\n        userEnteredFormat: {\n          textFormat: { bold: true },\n          horizontalAlignment: \"CENTER\",\n          verticalAlignment: \"MIDDLE\",\n        },\n      },\n      fields: \"userEnteredValue,userEnteredFormat.textFormat,userEnteredFormat.horizontalAlignment,userEnteredFormat.verticalAlignment\",\n    },\n  });\n    requests.push({\n    updateBorders: {\n      range: r,\n      top:    { style: \"SOLID\", width: 1, color: { red: 0, green: 0, blue: 0 } },\n      bottom: { style: \"SOLID\", width: 1, color: { red: 0, green: 0, blue: 0 } },\n      left:   { style: \"SOLID\", width: 1, color: { red: 0, green: 0, blue: 0 } },\n      right:  { style: \"SOLID\", width: 1, color: { red: 0, green: 0, blue: 0 } },\n    }\n  });\n}\n\nfor (const [a1, text] of singleCells) {\n  const match = a1.match(/^([A-Z]+)(\\d+)$/);\n  if (!match) continue;\n  const [ , col, row ] = match;\n  requests.push({\n    updateCells: {\n      rows: [{\n        values: [{\n          userEnteredValue: { stringValue: text },\n          userEnteredFormat: {\n            textFormat: { bold: true },\n            horizontalAlignment: \"CENTER\",\n            verticalAlignment: \"MIDDLE\",\n          },\n        }],\n      }],\n      fields: \"userEnteredValue,userEnteredFormat.textFormat,userEnteredFormat.horizontalAlignment,userEnteredFormat.verticalAlignment\",\n      start: {\n        sheetId,\n        rowIndex: parseInt(row) - 1,\n        columnIndex: colToIndex(col),\n      },\n    },\n  });\n}\n\nreturn {\n  requests,\n};\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -160,
+        160
+      ],
+      "id": "438c061b-e062-4c66-8404-04859db1b1f2",
+      "name": "Formatting 'Report' | BLOCK 2 - entering fixed text"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://sheets.googleapis.com/v4/spreadsheets/{{$node[\"Creating the 'Total_Sales' file\"].json.spreadsheetId}}:batchUpdate",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleSheetsOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -380,
+        160
+      ],
+      "id": "7f40cc1a-63e4-4a44-a345-f405013f910e",
+      "name": "Adding formatting to a worksheet1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ISQO8uulbOvYyDIs",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://sheets.googleapis.com/v4/spreadsheets/{{$node[\"Creating the 'Total_Sales' file\"].json.spreadsheetId}}:batchUpdate",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleSheetsOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        60,
+        160
+      ],
+      "id": "f50927d7-1bca-44b9-8130-7e7d4bb3dc6e",
+      "name": "Adding formatting to a worksheet2",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ISQO8uulbOvYyDIs",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "WITH orders_base AS (\n  SELECT\n    o.id AS order_id,\n    o.date_created,\n    o.status,\n    LOWER(o.billing_first_name || ' ' || o.billing_last_name) AS client_name,\n    o.customer_status,\n  CASE\n      WHEN o.status IN ('processing', 'on-hold') THEN TRUE\n      ELSE FALSE\n    END AS is_processing\n  FROM orders o\n  WHERE o.status NOT IN ('cancelled', 'draft', 'refunded', 'pending', 'checkout-draft')\nAND o.date_created BETWEEN '{{ $('Transfer of dates').first().json.start_date }}'::timestamp\n                        AND '{{ $('Transfer of dates').first().json.end_date }}'::timestamp\n),\nitems_base AS (\n  SELECT\n    oli.order_id,\n    oli.name,\n    oli.quantity,\n    oli.total,\n    CASE\n      WHEN oli.name ILIKE '%Product_I%' THEN 'Product_I'\n      WHEN oli.name ILIKE '%Product_B%' THEN 'Product_B'\n      WHEN oli.name ILIKE '%Product_C%' THEN 'Product_C'\n      WHEN oli.name ILIKE '%Product_A%' THEN 'Product_A'\n      WHEN oli.name ILIKE '%Product_D%' THEN 'Product_D'\n      WHEN oli.name ILIKE '%Product_O1%' OR oli.name ILIKE '%Product_O2%' OR oli.name ILIKE '%Product_O3%' OR oli.name ILIKE '%Product_O4%' THEN 'Product_O'\n      WHEN oli.name ILIKE '%Product_F1%' OR oli.name ILIKE '%Product_F2%' OR oli.name ILIKE '%Product_F3%' THEN 'Product_F'\n    END AS product_group,\n    CASE WHEN oli.total < 20 THEN oli.quantity ELSE 0 END AS promotional_qty,\n    CASE WHEN oli.total >= 20 THEN oli.quantity ELSE 0 END AS full_price_qty\n  FROM order_line_items oli\n),\njoined AS (\n  SELECT\n    ib.*,\n    ob.client_name,\n    ob.customer_status,\n    ob.is_processing,\n    ca.\"Assignment\",\n    ca.\"Key_Account_Manager/E-commerce_Platform\"\n  FROM items_base ib\n  JOIN orders_base ob ON ib.order_id = ob.order_id\n  LEFT JOIN \"Customer Assignment\" ca ON LOWER(ca.Customer) = ob.client_name\n  WHERE product_group IS NOT NULL\n),\naggregates AS (\n  SELECT\n    product_group,\n    'quantity_total' AS metrics,\n    NULL AS division,\n    NULL AS Assignment,\n    SUM(quantity)::INT AS value\n  FROM joined\n  GROUP BY 1\n\n  UNION ALL\n\n  SELECT\n    product_group,\n    'quantity_by_status',\n    customer_status,\n    NULL,\n    SUM(quantity)::INT\n  FROM joined\n  GROUP BY 1, 3\n\n  UNION ALL\n\n  SELECT\n    product_group,\n    'quantity_by_Assignment',\n    Assignment,\n    Assignment,\n    SUM(quantity)::INT\n  FROM joined\n  WHERE Assignment IS NOT NULL\n  GROUP BY 1, 2, 3, 4\n\n  UNION ALL\n\n  SELECT\n    product_group,\n    'unique_orders_total',\n    NULL,\n    NULL,\n    COUNT(DISTINCT order_id)::INT\n  FROM joined\n  GROUP BY 1\n\n  UNION ALL\n\n  SELECT\n    product_group,\n    'unique_orders_by_status',\n    customer_status,\n    NULL,\n    COUNT(DISTINCT order_id)::INT\n  FROM joined\n  GROUP BY 1, 3\n\n  UNION ALL\n\n  SELECT\n    product_group,\n    'unique_orders_by_Key_Account_Manager_E-commerce_Platform',\n    \"Key_Account_Manager/E-commerce_Platform\",\n    NULL,\n    COUNT(DISTINCT order_id)::INT\n  FROM joined\n  WHERE \"Key_Account_Manager/E-commerce_Platform\" IS NOT NULL\n  GROUP BY 1, 3\n\n  UNION ALL\n\n  SELECT\n    product_group,\n    'unique_orders_by_Assignment',\n    Assignment,\n    Assignment,\n    COUNT(DISTINCT order_id)::INT\n  FROM joined\n  WHERE Assignment IS NOT NULL\n  GROUP BY 1, 2, 3, 4\n\n  UNION ALL\n\n  SELECT\n    product_group,\n    'total_sales',\n    NULL,\n    NULL,\n    SUM(total)::DECIMAL(10,2)\n  FROM joined\n  GROUP BY 1\n\n  UNION ALL\n\n  SELECT\n    product_group,\n    'sales_by_status',\n    customer_status,\n    NULL,\n    SUM(total)::DECIMAL(10,2)\n  FROM joined\n  GROUP BY 1, 3\n\n  UNION ALL\n\n  SELECT\n    product_group,\n    'sales_by_Assignment',\n    Assignment,\n    Assignment,\n    SUM(total)::DECIMAL(10,2)\n  FROM joined\n  WHERE Assignment IS NOT NULL\n  GROUP BY 1, 2, 3, 4\n\n  UNION ALL\n\n  SELECT\n    product_group,\n    'sales_by_Key_Account_Manager_E-commerce_Platform',\n    \"Key_Account_Manager/E-commerce_Platform\",\n    NULL,\n    SUM(total)::DECIMAL(10,2)\n  FROM joined\n  WHERE \"Key_Account_Manager/E-commerce_Platform\" IS NOT NULL\n  GROUP BY 1, 3\n\n  UNION ALL\n\n  SELECT\n    product_group,\n    'promo_qty_by_Assignment',\n    Assignment,\n    Assignment,\n    SUM(promotional_qty)::INT\n  FROM joined\n  WHERE Assignment IS NOT NULL\n  GROUP BY 1, 2, 3, 4\n\n  UNION ALL\n\n  SELECT\n    product_group,\n    'full_price_qty_by_Assignment',\n    Assignment,\n    Assignment,\n    SUM(full_price_qty)::INT\n  FROM joined\n  WHERE Assignment IS NOT NULL\n  GROUP BY 1, 2, 3, 4\n\n  UNION ALL\n\n  SELECT\n    product_group,\n    'unique_clients_by_Assignment',\n    Assignment,\n    Assignment,\n    COUNT(DISTINCT client_name)::INT\n  FROM joined\n  WHERE Assignment IS NOT NULL\n  GROUP BY 1, 2, 3, 4\n\n  UNION ALL\n\n  SELECT\n    product_group,\n    'sales_processing',\n    NULL,\n    NULL,\n    SUM(total)::DECIMAL(10,2)\n  FROM joined\n  WHERE is_processing = TRUE\n  GROUP BY 1\n\nUNION ALL\n\nSELECT\n  product_group,\n  'unique_orders_by_Key_Account_Manager_E-commerce_Platform_and_status' AS metrics,\n  \"Key_Account_Manager/E-commerce_Platform\" || ' | ' || customer_status AS division,\n  NULL,\n  COUNT(DISTINCT order_id)::INT\nFROM joined\nWHERE \"Key_Account_Manager/E-commerce_Platform\" IS NOT NULL AND customer_status IS NOT NULL\nGROUP BY 1, 3\n\nUNION ALL\n\nSELECT\n  product_group,\n  'quantity_by_Key_Account_Manager_E-commerce_Platform',\n  \"Key_Account_Manager/E-commerce_Platform\",\n  NULL,\n  SUM(quantity)::INT\nFROM joined\nWHERE \"Key_Account_Manager/E-commerce_Platform\" IS NOT NULL\nGROUP BY 1, 3\n\n  \n)\n\nSELECT * FROM aggregates\nORDER BY product_group, metrics, division;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        220,
+        160
+      ],
+      "id": "1445c736-45ad-4667-ab80-b35558bce401",
+      "name": "Data_Import1",
+      "credentials": {
+        "postgres": {
+          "id": "XoX5Nox5i4rg33Nh",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT\n    o.id,\n    o.status,\n    o.date_created,\n    o.billing_first_name,\n    o.billing_last_name,\n    o.customer_status,\n    (o.billing_first_name || ' ' || o.billing_last_name) AS full_name,\n    CASE \n        WHEN oli.name ILIKE '%Product_I%' THEN 'Product_I'\n        WHEN oli.name ILIKE '%Product_B%' THEN 'Product_B'\n        WHEN oli.name ILIKE '%Product_C%' THEN 'Product_C'\n        WHEN oli.name ILIKE '%Product_A%' THEN 'Product_A'\n        WHEN oli.name ILIKE '%Product_D%' THEN 'Product_D'\n        WHEN oli.name ILIKE '%Product_O1%' OR oli.name ILIKE '%Product_O2%' OR oli.name ILIKE '%Product_O3%' OR oli.name ILIKE '%Product_O4%' THEN 'Product_O'\n        WHEN oli.name ILIKE '%Product_F1%' OR oli.name ILIKE '%Product_F2%' OR oli.name ILIKE '%Product_F3%' THEN 'Product_F'\n        ELSE oli.name\n    END AS product_name,\n    oli.quantity,\n    oli.total AS product_total,\n    CASE\n        WHEN oli.total < 20 THEN oli.quantity\n        ELSE NULL\n    END AS number_of_promotional_products,\n    ca.Customer,\n    ca.Assignment,\n    ca.\"Key_Account_Manager/E-commerce_Platform\" AS Key_Account_Manager_E-commerce_Platform\nFROM orders o\nLEFT JOIN order_line_items oli ON oli.order_id = o.id\nLEFT JOIN \"Customer Assignment\" ca ON LOWER(ca.Customer) = LOWER(o.billing_first_name || ' ' || o.billing_last_name)\nWHERE o.date_created BETWEEN '{{ $node[\"Transfer of dates\"].json[\"start_date\"] }}' AND '{{ $node[\"Transfer of dates\"].json[\"end_date\"] }}'\n  AND o.status NOT IN ('cancelled', 'draft', 'refunded', 'pending', 'checkout-draft')\nORDER BY o.date_created DESC;\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        120,
+        440
+      ],
+      "id": "ccd45df3-0ac0-491d-8443-e4d81769aac0",
+      "name": "Data_Import2",
+      "credentials": {
+        "postgres": {
+          "id": "XoX5Nox5i4rg33Nh",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://sheets.googleapis.com/v4/spreadsheets/{{$node[\"Creating the 'Total_Sales' file\"].json.spreadsheetId}}:batchUpdate",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleSheetsOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        620,
+        -140
+      ],
+      "id": "2421be34-2bc7-45fb-a8f2-ed2aecf4d61c",
+      "name": "Entering data into the spreadsheet1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ISQO8uulbOvYyDIs",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://sheets.googleapis.com/v4/spreadsheets/{{$node[\"Creating the 'Total_Sales' file\"].json.spreadsheetId}}:batchUpdate",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleSheetsOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        620,
+        40
+      ],
+      "id": "7dca143a-46bc-4a86-9ce7-7ed46c277c66",
+      "name": "Entering data into the spreadsheet2",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ISQO8uulbOvYyDIs",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://sheets.googleapis.com/v4/spreadsheets/{{$node[\"Creating the 'Total_Sales' file\"].json.spreadsheetId}}:batchUpdate",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleSheetsOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        620,
+        220
+      ],
+      "id": "a1f9270e-f073-4f4f-9558-92ca8af2c2e4",
+      "name": "Entering data into the spreadsheet3",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ISQO8uulbOvYyDIs",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const sheetId = $('Creating the \\'Total_Sales\\' file').first().json.sheets[0].properties.sheetId;\nconst items = $input.all();\nconst updates = [];\n\nfunction getCellUpdate(row, colIndex, value, format = null) {\n  const base = {\n    userEnteredValue: { numberValue: value },\n  };\n  if (format) {\n    base.userEnteredFormat = format;\n  }\n  return {\n    repeatCell: {\n      range: {\n        sheetId,\n        startRowIndex: row - 1,\n        endRowIndex: row,\n        startColumnIndex: colIndex,\n        endColumnIndex: colIndex + 1,\n      },\n      cell: base,\n      fields: format ? \"userEnteredValue,userEnteredFormat.numberFormat\" : \"userEnteredValue\",\n    },\n  };\n}\n\nconst product_groups = [\"Product_A\", \"Product_B\", \"Product_C\", \"Product_D\", \"Product_O\", \"Product_I\", \"Product_F\"];\nconst customer_status = [\"new\", \"returning\"];\nconst columns = { new: { val: 1, perc: 2 }, returning: { val: 3, perc: 4 } }; // B–E\nconst percentFormat = { numberFormat: { type: \"PERCENT\", pattern: \"0%\" } };\nconst currencyFormat = { numberFormat: { type: \"CURRENCY\", pattern: \"#,##0 zł\" } };\n\nconst metrics = [\n  {\n    metrics: \"unique_orders_by_status\",\n    rows: { \"Product_A\": 5, \"Product_B\": 38, \"Product_C\": 71, \"Product_D\": 104, \"Product_O\": 137, \"Product_I\": 170, \"Product_F\": 203 },\n    formatValues: null\n  },\n  {\n    metrics: \"quantity_by_status\",\n    rows: { \"Product_A\": 6, \"Product_B\": 39, \"Product_C\": 72, \"Product_D\": 105, \"Product_O\": 138, \"Product_I\": 171, \"Product_F\": 204 },\n    formatValues: null\n  },\n  {\n    metrics: \"sales_by_status\",\n    rows: { \"Product_A\": 7, \"Product_B\": 40, \"Product_C\": 73, \"Product_D\": 106, \"Product_O\": 139, \"Product_I\": 172, \"Product_F\": 205 },\n    formatValues: currencyFormat\n  },\n];\n\nfor (const { metrics, rows, formatValues } of metrics) {\n  for (const group of product_groups) {\n    const row = rows[group];\n    let sum = 0;\n    const values = [];\n\n    for (const status of customer_status) {\n      const record = items.find(el =>\n        el.json.product_group === group &&\n        el.json.metrics === metrics &&\n        el.json.division === status\n      );\n      const val = record ? parseFloat(record.json.value) : 0;\n      sum += val;\n      values.push({ val, colVal: columns[status].val, colPerc: columns[status].perc });\n      updates.push(getCellUpdate(row, columns[status].val, val, formatValues));\n    }\n\n    updates.push(getCellUpdate(row, 5, sum, formatValues)); // column F (sum)\n\n    for (const { val, colPerc } of values) {\n      const percent = sum > 0 ? val / sum : 0;\n      updates.push(getCellUpdate(row, colPerc, percent, percentFormat));\n    }\n  }\n}\n\nreturn { requests: updates };"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        400,
+        40
+      ],
+      "id": "506df41d-3090-46ca-acfc-c18111cc2e8e",
+      "name": "Formatting | metrics_by_status"
+    },
+    {
+      "parameters": {
+        "jsCode": "const sheetId = $('Creating the \\'Total_Sales\\' file').first().json.sheets[0].properties.sheetId;\nconst items = $input.all();\nconst updates = [];\n\nfunction getCellUpdate(row, colIndex, value, format = null) {\n  const base = {\n    userEnteredValue: { numberValue: value },\n  };\n  if (format) {\n    base.userEnteredFormat = format;\n  }\n  return {\n    repeatCell: {\n      range: {\n        sheetId,\n        startRowIndex: row - 1,\n        endRowIndex: row,\n        startColumnIndex: colIndex,\n        endColumnIndex: colIndex + 1,\n      },\n      cell: base,\n      fields: format ? \"userEnteredValue,userEnteredFormat.numberFormat\" : \"userEnteredValue\",\n    },\n  };\n}\n\nconst assignments = [\n  \"Sales_Rep_1\", \"Sales_Rep_2\", \"Sales_Rep_3\", \"Sales_Rep_4\",\n  \"Sales_Rep_5\", \"Sales_Rep_6\", \"Sales_Rep_7\", \"Sales_Rep_8\", \"E-commerce_Platform\"\n];\nconst kolNom = [1, 3, 5, 7, 9, 11, 13, 15, 17];\nconst kolPerc = [2, 4, 6, 8, 10, 12, 14, 16, 18];\n\nconst percentFormat = { numberFormat: { type: \"PERCENT\", pattern: \"0%\" } };\nconst currencyFormat = { numberFormat: { type: \"CURRENCY\", pattern: \"#,##0 zł\" } };\n\nfunction processAssignment(metrics, rows, useCurrency = false) {\n  for (const [group, row] of Object.entries(rows)) {\n    let sum = 0;\n    const values = [];\n\n    for (let i = 0; i < assignments.length; i++) {\n      const przyp = assignments[i];\n      const val = parseFloat(items.find(el => el.json.product_group === group && el.json.metrics === metrics && el.json.division === przyp)?.json.value || 0);\n      sum += val;\n      values.push({ val, colNom: kolNom[i], colPerc: kolPerc[i] });\n      updates.push(getCellUpdate(row, kolNom[i], val, useCurrency ? currencyFormat : null));\n    }\n\n    updates.push(getCellUpdate(row, 19, sum, useCurrency ? currencyFormat : null));\n\n    for (const { val, colPerc } of values) {\n      const percent = sum > 0 ? val / sum : 0;\n      updates.push(getCellUpdate(row, colPerc, percent, percentFormat));\n    }\n  }\n}\n\nconst metrics = [\n  { metrics: \"unique_orders_by_Assignment\", rows: { \"Product_A\": 25, \"Product_B\": 58, \"Product_C\": 91, \"Product_D\": 124, \"Product_O\": 157, \"Product_I\": 190, \"Product_F\": 223 } },\n  { metrics: \"quantity_by_Assignment\", rows: { \"Product_A\": 26, \"Product_B\": 59, \"Product_C\": 92, \"Product_D\": 125, \"Product_O\": 158, \"Product_I\": 191, \"Product_F\": 224 } },\n  { metrics: \"sales_by_Assignment\", rows: { \"Product_A\": 27, \"Product_B\": 60, \"Product_C\": 93, \"Product_D\": 126, \"Product_O\": 159, \"Product_I\": 192, \"Product_F\": 225 }, currency: true },\n  { metrics: \"promo_qty_by_Assignment\", rows: { \"Product_A\": 29, \"Product_B\": 62, \"Product_C\": 95, \"Product_D\": 128, \"Product_O\": 161, \"Product_I\": 194, \"Product_F\": 227 } },\n  { metrics: \"full_price_qty_by_Assignment\", rows: { \"Product_A\": 30, \"Product_B\": 63, \"Product_C\": 96, \"Product_D\": 129, \"Product_O\": 162, \"Product_I\": 195, \"Product_F\": 228 } },\n  { metrics: \"unique_clients_by_Assignment\", rows: { \"Product_A\": 31, \"Product_B\": 64, \"Product_C\": 97, \"Product_D\": 130, \"Product_O\": 163, \"Product_I\": 196, \"Product_F\": 229 } },\n];\nfor (const m of metrics) processAssignment(m.metrics, m.rows, m.currency || false);\n\n// total_sales / sales_processing\nconst totalSalesRows = { \"Product_A\": 2, \"Product_B\": 3, \"Product_C\": 4, \"Product_D\": 5, \"Product_O\": 6, \"Product_I\": 7, \"Product_F\": 8 };\nconst processingRows = { \"Product_A\": 13, \"Product_B\": 14, \"Product_C\": 15, \"Product_D\": 16, \"Product_O\": 17, \"Product_I\": 18, \"Product_F\": 19 };\nlet sumTotal = 0, sumProc = 0;\n\nfor (const [group, row] of Object.entries(totalSalesRows)) {\n  const v = parseFloat(items.find(el => el.json.product_group === group && el.json.metrics === \"total_sales\")?.json.value || 0);\n  sumTotal += v;\n  updates.push(getCellUpdate(row, 8, v, currencyFormat));\n}\nfor (const [group, row] of Object.entries(processingRows)) {\n  const v = parseFloat(items.find(el => el.json.product_group === group && el.json.metrics === \"sales_processing\")?.json.value || 0);\n  sumProc += v;\n  updates.push(getCellUpdate(row, 8, v, currencyFormat));\n}\nupdates.push(getCellUpdate(9, 8, sumTotal, currencyFormat));\nupdates.push(getCellUpdate(20, 8, sumProc, currencyFormat));\n\nreturn { requests: updates };\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        400,
+        -140
+      ],
+      "id": "83a3cc59-e1af-40ee-803f-81358fb30dc5",
+      "name": "Formatting | metrics_by_Assignment"
+    },
+    {
+      "parameters": {
+        "jsCode": "const sheetId = $('Creating the \\'Total_Sales\\' file').first().json.sheets[0].properties.sheetId;\nconst items = $input.all();\nconst updates = [];\n\nfunction getCellUpdate(row, colIndex, value, format = null) {\n  const base = {\n    userEnteredValue: { numberValue: value },\n  };\n  if (format) {\n    base.userEnteredFormat = format;\n  }\n  return {\n    repeatCell: {\n      range: {\n        sheetId,\n        startRowIndex: row - 1,\n        endRowIndex: row,\n        startColumnIndex: colIndex,\n        endColumnIndex: colIndex + 1,\n      },\n      cell: base,\n      fields: format ? \"userEnteredValue,userEnteredFormat.numberFormat\" : \"userEnteredValue\",\n    },\n  };\n}\n\nconst percentFormat = { numberFormat: { type: \"PERCENT\", pattern: \"0%\" } };\nconst currencyFormat = { numberFormat: { type: \"CURRENCY\", pattern: \"#,##0 zł\" } };\n\nconst product_groups = [\"Product_A\", \"Product_B\", \"Product_C\", \"Product_D\", \"Product_O\", \"Product_I\", \"Product_F\"];\nconst categories = [\n  { typ: \"E-commerce_Platform\", colVal: 1, colPerc: 2 },\n  { typ: \"Key_Account_Manager\", colVal: 3, colPerc: 4 },\n];\n\n// --- metrics: division E-commerce_Platform/Key_Account_Manager ---\nconst metrics = [\n  {\n    metrics: \"quantity_by_Key_Account_Manager_E-commerce_Platform\",\n    rows: { \"Product_A\": 19, \"Product_B\": 52, \"Product_C\": 85, \"Product_D\": 118, \"Product_O\": 151, \"Product_I\": 184, \"Product_F\": 217 },\n    format: null\n  },\n  {\n    metrics: \"sales_by_Key_Account_Manager_E-commerce_Platform\",\n    rows: { \"Product_A\": 20, \"Product_B\": 53, \"Product_C\": 86, \"Product_D\": 119, \"Product_O\": 152, \"Product_I\": 185, \"Product_F\": 218 },\n    format: currencyFormat\n  },\n  {\n    metrics: \"unique_orders_by_Key_Account_Manager_E-commerce_Platform\",\n    rows: { \"Product_A\": 18, \"Product_B\": 51, \"Product_C\": 84, \"Product_D\": 117, \"Product_O\": 150, \"Product_I\": 183, \"Product_F\": 216 },\n    format: null\n  },\n];\n\nfor (const { metrics, rows, format } of metrics) {\n  for (const group of product_groups) {\n    const row = rows[group];\n    let sum = 0;\n    const values = [];\n\n    for (const { typ, colVal, colPerc } of categories) {\n      const record = items.find(el =>\n        el.json.product_group === group &&\n        el.json.metrics === metrics &&\n        el.json.division === typ\n      );\n      const val = record ? parseFloat(record.json.value) : 0;\n      sum += val;\n      values.push({ val, colPerc });\n      updates.push(getCellUpdate(row, colVal, val, format));\n    }\n\n    updates.push(getCellUpdate(row, 5, sum, format));\n\n    for (const { val, colPerc } of values) {\n      const percent = sum > 0 ? val / sum : 0;\n      updates.push(getCellUpdate(row, colPerc, percent, percentFormat));\n    }\n  }\n}\n\n// --- METRICS: unique_orders_by_Key_Account_Manager_E-commerce_Platform_and_status ---\nconst detailedRows = {\n  \"Product_A\": { Key_Account_Manager: 12, E-commerce_Platform: 13 },\n  \"Product_B\": { Key_Account_Manager: 45, E-commerce_Platform: 46 },\n  \"Product_C\": { Key_Account_Manager: 78, E-commerce_Platform: 79 },\n  \"Product_D\": { Key_Account_Manager: 111, E-commerce_Platform: 112 },\n  \"Product_O\": { Key_Account_Manager: 144, E-commerce_Platform: 145 },\n  \"Product_I\": { Key_Account_Manager: 177, E-commerce_Platform: 178 },\n  \"Product_F\": { Key_Account_Manager: 210, E-commerce_Platform: 211 },\n};\n\nfor (const [group, { Key_Account_Manager: rowKey_Account_Manager, E-commerce_Platform: rowE-commerce_Platform }] of Object.entries(detailedRows)) {\n  const values = { Key_Account_Manager: { new: 0, returning: 0 }, E-commerce_Platform: { new: 0, returning: 0 } };\n\n  for (const item of items) {\n    const date = item.json;\n    if (\n      date.metrics === \"unique_orders_by_Key_Account_Manager_E-commerce_Platform_and_status\" &&\n      date.product_group === group &&\n      typeof date.division === 'string' &&\n      date.division.includes(\" | \")\n    ) {\n      const [channel, status] = date.division.split(\" | \").map(x => x.trim());\n      if (values[channel] && (status === \"new\" || status === \"returning\")) {\n        values[channel][status] += parseFloat(date.value);\n      }\n    }\n  }\n\n  for (const type of [\"Key_Account_Manager\", \"E-commerce_Platform\"]) {\n    const row = typ === \"Key_Account_Manager\" ? rowKey_Account_Manager : rowE-commerce_Platform;\n    const vNew = values[typ].new;\n    const vRet = values[typ].returning;\n    const sum = vNew + vRet;\n\n    updates.push(getCellUpdate(row, 1, vNew));\n    updates.push(getCellUpdate(row, 2, sum > 0 ? vNew / sum : 0, percentFormat));\n    updates.push(getCellUpdate(row, 3, vRet));\n    updates.push(getCellUpdate(row, 4, sum > 0 ? vRet / sum : 0, percentFormat));\n    updates.push(getCellUpdate(row, 5, sum));\n  }\n}\n\nreturn { requests: updates };\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        400,
+        220
+      ],
+      "id": "c93760f5-75b4-4ed4-8cf7-ed67f6bfeb00",
+      "name": "Formatting | metrics_by_Key_Account_Manager_E-commerce_Platform"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://sheets.googleapis.com/v4/spreadsheets/{{$node[\"Creating the 'Total_Sales' file\"].json.spreadsheetId}}:batchUpdate",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleSheetsOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -80,
+        440
+      ],
+      "id": "c5789cc1-f5f9-4bc6-8de6-44c5a1a7df8a",
+      "name": "Adding formatting to a worksheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ISQO8uulbOvYyDIs",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const sheetId = $('Creating the \\'Total_Sales\\' file').first().json.sheets[3].properties.sheetId;\n\nreturn [\n  {\n    requests: [\n      {\n        updateSheetProperties: {\n          properties: {\n            sheetId,\n            gridProperties: {\n              frozenRowCount: 1\n            }\n          },\n          fields: \"gridProperties.frozenRowCount\"\n        }\n      },\n      {\n        repeatCell: {\n          range: {\n            sheetId,\n            startRowIndex: 0,\n            endRowIndex: 1\n          },\n          cell: {\n            userEnteredFormat: {\n              backgroundColor: {\n                red: 201 / 255,\n                green: 218 / 255,\n                blue: 248 / 255\n              },\n              textFormat: {\n                bold: true\n              }\n            }\n          },\n          fields: \"userEnteredFormat(backgroundColor,textFormat)\"\n        }\n      },\n      {\n        updateDimensionProperties: {\n          range: {\n            sheetId,\n            dimension: \"COLUMNS\",\n            startIndex: 0,\n            endIndex: 1\n          },\n          properties: {\n            pixelSize: 140\n          },\n          fields: \"pixelSize\"\n        }\n      },\n      {\n        updateDimensionProperties: {\n          range: {\n            sheetId,\n            dimension: \"COLUMNS\",\n            startIndex: 3,\n            endIndex: 4\n          },\n          properties: {\n            pixelSize: 200\n          },\n          fields: \"pixelSize\"\n        }\n      }\n    ]\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -260,
+        440
+      ],
+      "id": "6c83b3f1-00a7-4f8d-a908-47cea4a03fc1",
+      "name": "Formatting headers"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://sheets.googleapis.com/v4/spreadsheets/{{$node[\"Creating the 'Total_Sales' file\"].json.spreadsheetId}}:batchUpdate",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleSheetsOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -80,
+        660
+      ],
+      "id": "0dd77557-bcfc-4c5a-b145-4598ce7a81fe",
+      "name": "Adding formatting to a worksheet3",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ISQO8uulbOvYyDIs",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const sheetId = $('Creating the \\'Total_Sales\\' file').first().json.sheets[2].properties.sheetId;\n\nreturn [\n  {\n    requests: [\n      {\n        updateSheetProperties: {\n          properties: {\n            sheetId,\n            gridProperties: {\n              frozenRowCount: 1\n            }\n          },\n          fields: \"gridProperties.frozenRowCount\"\n        }\n      },\n      {\n        repeatCell: {\n          range: {\n            sheetId,\n            startRowIndex: 0,\n            endRowIndex: 1\n          },\n          cell: {\n            userEnteredFormat: {\n              backgroundColor: {\n                red: 201 / 255,\n                green: 218 / 255,\n                blue: 248 / 255\n              },\n              textFormat: {\n                bold: true\n              }\n            }\n          },\n          fields: \"userEnteredFormat(backgroundColor,textFormat)\"\n        }\n      },\n      {\n        updateDimensionProperties: {\n          range: {\n            sheetId,\n            dimension: \"COLUMNS\",\n            startIndex: 0,\n            endIndex: 1\n          },\n          properties: {\n            pixelSize: 200\n          },\n          fields: \"pixelSize\"\n        }\n      }\n    ]\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -260,
+        660
+      ],
+      "id": "65d13190-3554-4f10-800c-f8fe87daa2d2",
+      "name": "Formatting headers1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "58865a4f-f640-419d-98f1-f3956e2ea276",
+              "name": "Customer",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "97d2c59a-d513-4625-bf4e-d3f40a46ec1e",
+              "name": "Total",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "eb897802-0de8-415c-872f-750fd41b8c8a",
+              "name": "Product_A",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "4b70da79-ce62-4184-b7a9-33ccc48187a8",
+              "name": "Product_B",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "09374a78-eb29-437c-ac92-1842cc6c4641",
+              "name": "Product_C",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "68c9b75a-5f5e-4265-8931-1c5318721352",
+              "name": "Product_D",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "117918ea-ec16-436e-a1a5-2eab7e20350a",
+              "name": "Product_O",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "9880df1a-1a82-4b2e-b8c9-c2a6048c83ed",
+              "name": "Product_I",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "6f7beb90-d86b-4aee-8993-06354fc0dbc9",
+              "name": "Product_F",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "8f52b4f6-1b92-4e35-a45c-48b5eb7c1538",
+              "name": "Assignment",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -580,
+        660
+      ],
+      "id": "7d83fa2a-eb52-4db0-8ac5-515d8f829b6c",
+      "name": "Headings 'Customer ranking for a given period'",
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "={{$node[\"Creating the 'Total_Sales' file\"].json.spreadsheetId}}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "={{ $('Creating the \\'Total_Sales\\' file').item.json.sheets[2].properties.sheetId }}",
+          "mode": "id"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Customer",
+              "displayName": "Customer",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Product_A",
+              "displayName": "Product_A",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Product_B",
+              "displayName": "Product_B",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Product_C",
+              "displayName": "Product_C",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Product_D",
+              "displayName": "Product_D",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Product_O",
+              "displayName": "Product_O",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Product_I",
+              "displayName": "Product_I",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Product_F",
+              "displayName": "Product_F",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Total",
+              "displayName": "Total",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        -420,
+        660
+      ],
+      "id": "827570f9-20c8-4638-96c6-a3501bc80679",
+      "name": "Inserting headers 'customer ranking for a given period'",
+      "retryOnFail": true,
+      "waitBetweenTries": 2500,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ISQO8uulbOvYyDIs",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://sheets.googleapis.com/v4/spreadsheets/{{$node[\"Creating the 'Total_Sales' file\"].json.spreadsheetId}}:batchUpdate",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleSheetsOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -60,
+        860
+      ],
+      "id": "be62070f-3589-47a8-a92a-1eea6e8f2582",
+      "name": "Adding formatting to a worksheet4",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ISQO8uulbOvYyDIs",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const sheetId = $('Creating the \\'Total_Sales\\' file').first().json.sheets[1].properties.sheetId;\n\nreturn [\n  {\n    requests: [\n      {\n        updateSheetProperties: {\n          properties: {\n            sheetId,\n            gridProperties: {\n              frozenRowCount: 1\n            }\n          },\n          fields: \"gridProperties.frozenRowCount\"\n        }\n      },\n      {\n        repeatCell: {\n          range: {\n            sheetId,\n            startRowIndex: 0,\n            endRowIndex: 1\n          },\n          cell: {\n            userEnteredFormat: {\n              backgroundColor: {\n                red: 201 / 255,\n                green: 218 / 255,\n                blue: 248 / 255\n              },\n              textFormat: {\n                bold: true\n              }\n            }\n          },\n          fields: \"userEnteredFormat(backgroundColor,textFormat)\"\n        }\n      },\n      {\n        updateDimensionProperties: {\n          range: {\n            sheetId,\n            dimension: \"COLUMNS\",\n            startIndex: 0,\n            endIndex: 1\n          },\n          properties: {\n            pixelSize: 200\n          },\n          fields: \"pixelSize\"\n        }\n      }\n    ]\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -240,
+        860
+      ],
+      "id": "9423698e-d669-4cc9-97da-b3f3e0241bfc",
+      "name": "Formatting headers2"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "58865a4f-f640-419d-98f1-f3956e2ea276",
+              "name": "Customer",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "de0f38e3-0f4c-4779-bc91-21a0d74855f3",
+              "name": "Customer Level",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "97d2c59a-d513-4625-bf4e-d3f40a46ec1e",
+              "name": "Total",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "05e48aa4-2260-4438-8eb9-8259c7243c2d",
+              "name": "Total (€)",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "eb897802-0de8-415c-872f-750fd41b8c8a",
+              "name": "Product_A",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "4b70da79-ce62-4184-b7a9-33ccc48187a8",
+              "name": "Product_B",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "09374a78-eb29-437c-ac92-1842cc6c4641",
+              "name": "Product_C",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "68c9b75a-5f5e-4265-8931-1c5318721352",
+              "name": "Product_D",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "117918ea-ec16-436e-a1a5-2eab7e20350a",
+              "name": "Product_O",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "9880df1a-1a82-4b2e-b8c9-c2a6048c83ed",
+              "name": "Product_I",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "6f7beb90-d86b-4aee-8993-06354fc0dbc9",
+              "name": "Product_F",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "fe66aa53-1236-4c35-bc8c-0e48a5d3217e",
+              "name": "Assignment",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -580,
+        860
+      ],
+      "id": "09a7147f-e463-4043-bbca-016fc6a5ccc3",
+      "name": "Headings 'YtD Customer Ranking'",
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "={{$node[\"Creating the 'Total_Sales' file\"].json.spreadsheetId}}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "={{ $('Creating the \\'Total_Sales\\' file').item.json.sheets[1].properties.sheetId }}",
+          "mode": "id"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Customer",
+              "displayName": "Customer",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Customer Level",
+              "displayName": "Customer Level",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Total",
+              "displayName": "Total",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Total (€)",
+              "displayName": "Total (€)",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Product_A",
+              "displayName": "Product_A",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Product_B",
+              "displayName": "Product_B",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Product_C",
+              "displayName": "Product_C",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Product_D",
+              "displayName": "Product_D",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Product_O",
+              "displayName": "Product_O",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Product_I",
+              "displayName": "Product_I",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Product_F",
+              "displayName": "Product_F",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Assignment",
+              "displayName": "Assignment",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        -400,
+        860
+      ],
+      "id": "3c3d5f60-98f5-450a-bb31-b40586e9a7ad",
+      "name": "Inserting headers 'YTD customer ranking'",
+      "retryOnFail": true,
+      "waitBetweenTries": 2500,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ISQO8uulbOvYyDIs",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "WITH orders_base AS (\n  SELECT\n    o.id AS order_id,\n    LOWER(o.billing_first_name || ' ' || o.billing_last_name) AS client_name\n  FROM orders o\n  WHERE o.status NOT IN ('cancelled', 'draft', 'refunded', 'pending', 'checkout-draft')\n    AND o.date_created BETWEEN '{{ $('Transfer of dates').first().json.start_date }}'::timestamp\n                          AND '{{ $('Transfer of dates').first().json.end_date }}'::timestamp\n),\nitems_base AS (\n  SELECT\n    oli.order_id,\n    oli.total,\n    CASE\n      WHEN oli.name ILIKE '%Product_I%' THEN 'Product_I'\n      WHEN oli.name ILIKE '%Product_B%' THEN 'Product_B'\n      WHEN oli.name ILIKE '%Product_C%' THEN 'Product_C'\n      WHEN oli.name ILIKE '%Product_A%' THEN 'Product_A'\n      WHEN oli.name ILIKE '%Product_D%' THEN 'Product_D'\n      WHEN oli.name ILIKE '%Product_O1%' OR oli.name ILIKE '%Product_O2%' OR oli.name ILIKE '%Product_O3%' OR oli.name ILIKE '%Product_O4%' THEN 'Product_O'\n      WHEN oli.name ILIKE '%Product_F1%' OR oli.name ILIKE '%Product_F2%' OR oli.name ILIKE '%Product_F3%' THEN 'Product_F'\n    END AS product_group\n  FROM order_line_items oli\n),\njoined AS (\n  SELECT\n    ib.total,\n    ib.product_group,\n    ob.client_name,\n    ca.\"Assignment\"\n  FROM items_base ib\n  JOIN orders_base ob ON ib.order_id = ob.order_id\n  LEFT JOIN \"Customer Assignment\" ca ON LOWER(ca.Customer) = ob.client_name\n  WHERE ib.product_group IS NOT NULL\n),\naggregated AS (\n  SELECT\n    client_name,\n    Assignment,\n    product_group,\n    SUM(total)::DECIMAL(10,2) AS total_sales\n  FROM joined\n  GROUP BY client_name, Assignment, product_group\n),\npivoted AS (\n  SELECT\n    INITCAP(client_name) AS \"Customer\",\n    Assignment AS \"Assignment\",\n    COALESCE(SUM(CASE WHEN product_group = 'Product_B' THEN total_sales END), 0) AS \"Product_B\",\n    COALESCE(SUM(CASE WHEN product_group = 'Product_A' THEN total_sales END), 0) AS \"Product_A\",\n    COALESCE(SUM(CASE WHEN product_group = 'Product_C' THEN total_sales END), 0) AS \"Product_C\",\n    COALESCE(SUM(CASE WHEN product_group = 'Product_D' THEN total_sales END), 0) AS \"Product_D\",\n    COALESCE(SUM(CASE WHEN product_group = 'Product_O' THEN total_sales END), 0) AS \"Product_O\",\n    COALESCE(SUM(CASE WHEN product_group = 'Product_I' THEN total_sales END), 0) AS \"Product_I\",\n    COALESCE(SUM(CASE WHEN product_group = 'Product_F' THEN total_sales END), 0) AS \"Product_F\",\n    SUM(total_sales)::DECIMAL(10,2) AS \"Total\"\n  FROM aggregated\n  GROUP BY client_name, Assignment\n)\nSELECT \n  \"Customer\",\n  \"Assignment\",\n  \"Product_B\",\n  \"Product_O\",\n  \"Product_A\",\n  \"Product_C\",\n  \"Product_F\",\n  \"Product_I\",\n  \"Product_D\",\n  \"Total\"\nFROM pivoted\nORDER BY \"Total\" DESC;\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        120,
+        660
+      ],
+      "id": "c8226a8f-3b60-41e8-aec8-7f1bf80c7f45",
+      "name": "Data_Import",
+      "credentials": {
+        "postgres": {
+          "id": "XoX5Nox5i4rg33Nh",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "={{$node[\"Creating the 'Total_Sales' file\"].json.spreadsheetId}}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "={{ $('Creating the \\'Total_Sales\\' file').item.json.sheets[2].properties.sheetId }}",
+          "mode": "id"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Customer": "={{ $json.Customer }}",
+            "Product_A": "={{ $json.Product_A }}",
+            "Product_B": "={{ $json.Product_B }}",
+            "Product_C": "={{ $json['Product_C'] }}",
+            "Product_D": "={{ $json.Product_D }}",
+            "Product_O": "={{ $json.Product_O }}",
+            "Product_I": "={{ $json.Product_I }}",
+            "Product_F": "={{ $json['Product_F'] }}",
+            "Total": "={{ $json['Total'] }}",
+            "Assignment": "={{ $('Data_Import').item.json.Assignment }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Customer",
+              "displayName": "Customer",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Total",
+              "displayName": "Total",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Product_A",
+              "displayName": "Product_A",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Product_B",
+              "displayName": "Product_B",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Product_C",
+              "displayName": "Product_C",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Product_D",
+              "displayName": "Product_D",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Product_O",
+              "displayName": "Product_O",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Product_I",
+              "displayName": "Product_I",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Product_F",
+              "displayName": "Product_F",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Assignment",
+              "displayName": "Assignment",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        480,
+        660
+      ],
+      "id": "b79a172e-0c10-46e8-b5d7-36250c528cfb",
+      "name": "Data entry 'customer ranking for a given period'",
+      "retryOnFail": true,
+      "waitBetweenTries": 2500,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ISQO8uulbOvYyDIs",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const formatter = new Intl.NumberFormat('pl-PL', {\n  minimumFractionDigits: 2,\n  maximumFractionDigits: 2\n});\n\nconst fields = [\n  \"Product_A\",\n  \"Product_B\",\n  \"Product_C\",\n  \"Product_D\",\n  \"Product_O\",\n  \"Product_I\",\n  \"Product_F\",\n  \"Total\"\n];\n\nreturn items.map(item => {\n  const formatted = {};\n  fields.forEach(p => {\n    const val = Number(item.json[p]);\n    formatted[p] = (!isNaN(val) && val !== 0)\n      ? formatter.format(val) + ' zł'\n      : '';\n  });\n\n  return {\n    json: {\n      Customer: item.json.Customer,\n      ...formatted,\n      Assignment: item.json.Assignment || \"\"\n    }\n  };\n});\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        300,
+        660
+      ],
+      "id": "8785d448-c407-431c-82ec-c9e212bb9c02",
+      "name": "Format1"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "WITH orders_base AS (\n  SELECT\n    o.id AS order_id,\n    LOWER(o.billing_first_name || ' ' || o.billing_last_name) AS client_name\n  FROM orders o\n  WHERE o.status NOT IN ('cancelled', 'draft', 'refunded', 'pending', 'checkout-draft')\n    AND o.date_created BETWEEN \n      TO_DATE(EXTRACT(YEAR FROM '{{ $('Transfer of dates').first().json.end_date }}'::timestamp)::TEXT || '-01-01', 'YYYY-MM-DD')\n      AND '{{ $('Transfer of dates').first().json.end_date }}'::timestamp\n),\nitems_base AS (\n  SELECT\n    oli.order_id,\n    oli.total,\n    CASE\n      WHEN oli.name ILIKE '%Product_I%' THEN 'Product_I'\n      WHEN oli.name ILIKE '%Product_B%' THEN 'Product_B'\n      WHEN oli.name ILIKE '%Product_C%' THEN 'Product_C'\n      WHEN oli.name ILIKE '%Product_A%' THEN 'Product_A'\n      WHEN oli.name ILIKE '%Product_D%' THEN 'Product_D'\n      WHEN oli.name ILIKE '%Product_O1%' OR oli.name ILIKE '%Product_O2%' OR oli.name ILIKE '%Product_O3%' OR oli.name ILIKE '%Product_O4%' THEN 'Product_O'\n      WHEN oli.name ILIKE '%Product_F1%' OR oli.name ILIKE '%Product_F2%' OR oli.name ILIKE '%Product_F3%' THEN 'Product_F'\n    END AS product_group\n  FROM order_line_items oli\n),\njoined AS (\n  SELECT\n    ib.total,\n    ib.product_group,\n    ob.client_name,\n    ca.\"Assignment\"\n  FROM items_base ib\n  JOIN orders_base ob ON ib.order_id = ob.order_id\n  LEFT JOIN \"Customer Assignment\" ca ON LOWER(ca.Customer) = ob.client_name\n  WHERE ib.product_group IS NOT NULL\n),\naggregated AS (\n  SELECT\n    client_name,\n    product_group,\n    Assignment,\n    SUM(total)::DECIMAL(10,2) AS total_sales\n  FROM joined\n  GROUP BY client_name, product_group, Assignment\n),\npivoted AS (\n  SELECT\n    client_name,\n    Assignment,\n    COALESCE(SUM(CASE WHEN product_group = 'Product_B' THEN total_sales END), 0) AS \"Product_B\",\n    COALESCE(SUM(CASE WHEN product_group = 'Product_A' THEN total_sales END), 0) AS \"Product_A\",\n    COALESCE(SUM(CASE WHEN product_group = 'Product_C' THEN total_sales END), 0) AS \"Product_C\",\n    COALESCE(SUM(CASE WHEN product_group = 'Product_D' THEN total_sales END), 0) AS \"Product_D\",\n    COALESCE(SUM(CASE WHEN product_group = 'Product_O' THEN total_sales END), 0) AS \"Product_O\",\n    COALESCE(SUM(CASE WHEN product_group = 'Product_I' THEN total_sales END), 0) AS \"Product_I\",\n    COALESCE(SUM(CASE WHEN product_group = 'Product_F' THEN total_sales END), 0) AS \"Product_F\",\n    SUM(total_sales)::DECIMAL(10,2) AS \"Total\"\n  FROM aggregated\n  GROUP BY client_name, Assignment\n)\nSELECT \n  INITCAP(client_name) AS \"Customer\",\n  Assignment AS \"Assignment\",\n  \"Product_B\",\n  \"Product_O\",\n  \"Product_A\",\n  \"Product_C\",\n  \"Product_F\",\n  \"Product_I\",\n  \"Product_D\",\n  \"Total\"\nFROM pivoted\nORDER BY \"Total\" DESC;\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        340,
+        860
+      ],
+      "id": "3c201add-6302-442c-9e2d-4c78eb89ef36",
+      "name": "Data_Import3",
+      "credentials": {
+        "postgres": {
+          "id": "XoX5Nox5i4rg33Nh",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const rate = Number($node[\"Current EUR exchange rate\"].json.rates.PLN) || 4.3;\n\nconst formatter = new Intl.NumberFormat('pl-PL', {\n  minimumFractionDigits: 2,\n  maximumFractionDigits: 2\n});\n\nconst fields = [\n  \"Product_A\",\n  \"Product_B\",\n  \"Product_C\",\n  \"Product_D\",\n  \"Product_O\",\n  \"Product_I\",\n  \"Product_F\",\n  \"Total\"\n];\n\nreturn items.map(item => {\n  const formatted = {};\n  fields.forEach(p => {\n    const val = Number(item.json[p]);\n    formatted[p] = (!isNaN(val) && val !== 0)\n      ? formatter.format(val) + ' zł'\n      : '';\n  });\n\n  const totalPln = Number(item.json[\"Total\"]) || 0;\n  const totalEur = totalPln / rate;\n\n  let poziom = \"\";\n  if (totalEur >= 40000) poziom = \"Corporate\";\n  else if (totalEur >= 20000) poziom = \"Key Account\";\n  else if (totalEur >= 5000) poziom = \"Growth\";\n  else poziom = \"Select\";\n\n  return {\n    json: {\n      Customer: item.json.Customer,\n      ...formatted,\n      \"Total (€)\": totalEur ? formatter.format(totalEur) + ' €' : '',\n      \"Customer Level\": poziom,\n      Assignment: item.json.Assignment || \"\"\n    }\n  };\n});\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        540,
+        860
+      ],
+      "id": "ccb9e564-9eff-4569-b12d-acb1b16f299f",
+      "name": "Format2"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "={{$node[\"Creating the 'Total_Sales' file\"].json.spreadsheetId}}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "={{ $('Creating the \\'Total_Sales\\' file').item.json.sheets[1].properties.sheetId }}",
+          "mode": "id"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Customer": "={{ $json.Customer }}",
+            "Assignment": "={{ $json.Assignment }}",
+            "Product_D": "={{ $json.Product_D }}",
+            "Product_I": "={{ $json.Product_I }}",
+            "Product_O": "={{ $json.Product_O }}",
+            "Product_F": "={{ $json['Product_F'] }}",
+            "Product_C": "={{ $json['Product_C'] }}",
+            "Product_B": "={{ $json.Product_B }}",
+            "Product_A": "={{ $json.Product_A }}",
+            "Total": "={{ $json['Total'] }}",
+            "Customer Level": "={{ $json['Customer Level'] }}",
+            "Total (€)": "={{ $json['Total (€)'] }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Customer",
+              "displayName": "Customer",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Customer Level",
+              "displayName": "Customer Level",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Total",
+              "displayName": "Total",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Total (€)",
+              "displayName": "Total (€)",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Product_A",
+              "displayName": "Product_A",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Product_B",
+              "displayName": "Product_B",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Product_C",
+              "displayName": "Product_C",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Product_D",
+              "displayName": "Product_D",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Product_O",
+              "displayName": "Product_O",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Product_I",
+              "displayName": "Product_I",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Product_F",
+              "displayName": "Product_F",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Assignment",
+              "displayName": "Assignment",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        720,
+        860
+      ],
+      "id": "3d7ec596-1e07-489e-808c-b06d9b6ba01b",
+      "name": "Data entry 'YTD customer ranking'",
+      "retryOnFail": true,
+      "waitBetweenTries": 2500,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ISQO8uulbOvYyDIs",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://api.frankfurter.app/latest?from=EUR&to=PLN",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        160,
+        860
+      ],
+      "id": "845e71ae-d910-43fc-83b8-7adf81cf3c6d",
+      "name": "Current EUR exchange rate",
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const sheetId = $('Creating the \\'Total_Sales\\' file').first().json.sheets[1].properties.sheetId;\nconst rows = $input.all().map(e => e.json);\n\nfunction num(val) {\n  const parsed = parseFloat(String(val).replace(/[^0-9,.-]+/g, '').replace(',', '.'));\n  return isNaN(parsed) ? 0 : parsed;\n}\n\nfunction getCellUpdate(row, col, value, format = null) {\n  const update = {\n    repeatCell: {\n      range: {\n        sheetId,\n        startRowIndex: row - 1,\n        endRowIndex: row,\n        startColumnIndex: col,\n        endColumnIndex: col + 1,\n      },\n      cell: {\n        userEnteredValue: Number.isFinite(value) ? { numberValue: value } : { stringValue: value }\n      },\n      fields: 'userEnteredValue'\n    }\n  };\n\n  if (format) {\n    update.repeatCell.cell.userEnteredFormat = format;\n    update.repeatCell.fields += ',userEnteredFormat.numberFormat';\n  }\n\n  return update;\n}\n\nfunction fullBorderUpdate(startRow, endRow, startCol, endCol) {\n  return {\n    updateBorders: {\n      range: {\n        sheetId,\n        startRowIndex: startRow,\n        endRowIndex: endRow,\n        startColumnIndex: startCol,\n        endColumnIndex: endCol,\n      },\n      top: { style: 'SOLID', width: 1, color: { red: 0, green: 0, blue: 0 } },\n      bottom: { style: 'SOLID', width: 1, color: { red: 0, green: 0, blue: 0 } },\n      left: { style: 'SOLID', width: 1, color: { red: 0, green: 0, blue: 0 } },\n      right: { style: 'SOLID', width: 1, color: { red: 0, green: 0, blue: 0 } },\n      innerHorizontal: { style: 'SOLID', width: 1, color: { red: 0, green: 0, blue: 0 } },\n      innerVertical: { style: 'SOLID', width: 1, color: { red: 0, green: 0, blue: 0 } }\n    }\n  };\n}\n\nconst currencyFormat = { numberFormat: { type: 'CURRENCY', pattern: '#,##0.00 €' } };\nconst percentFormat = { numberFormat: { type: 'PERCENT', pattern: '0.0%' } };\n\nconst types = [\"Corporate\", \"Key Account\", \"Growth\", \"Select\"];\nconst table = {\n  \"Corporate\": { row: 4 },\n  \"Key Account\": { row: 5 },\n  \"Growth\": { row: 6 },\n  \"Select\": { row: 7 }\n};\n\nconst updates = [];\n\nconst staticLabels = [\n  [\"Type\", 3, 13], [\"No. Clients\", 3, 14], [\"Share among unique Customers\", 3, 15],\n  [\"Value\", 3, 16], [\"Sales share\", 3, 17],\n  [\"Corporate (>40.000 €)\", 4, 13], [\"Key Account (≥20.000 ≤ 40.000 €)\", 5, 13], [\"Growth (≥5.000 ≤ 20.000 €)\", 6, 13], [\"Select (≤ 5.000 €)\", 7, 13], [\"Total\", 8, 13]\n];\n\nfor (const [text, row, col] of staticLabels) {\n  updates.push({\n    repeatCell: {\n      range: {\n        sheetId,\n        startRowIndex: row - 1,\n        endRowIndex: row,\n        startColumnIndex: col,\n        endColumnIndex: col + 1\n      },\n      cell: {\n        userEnteredValue: { stringValue: text },\n        userEnteredFormat: {\n          backgroundColor: { red: 0.788, green: 0.855, blue: 0.972 },\n          textFormat: { bold: true }\n        }\n      },\n      fields: \"userEnteredValue,userEnteredFormat(backgroundColor,textFormat)\"\n    }\n  });\n}\n\nlet totalClients = 0;\nlet totalSales = 0;\n\nfor (const type of types) {\n  const clients = rows.filter(r => r[\"Customer Level\"] === type);\n  const sales = clients.reduce((sum, c) => sum + num(c[\"Total (€)\"]), 0);\n  const count = clients.length;\n\n  totalClients += count;\n  totalSales += sales;\n\n  table[type].clients = count;\n  table[type].sales = sales;\n}\n\nfor (const type of types) {\n  const { row, clients, sales } = table[type];\n  updates.push(getCellUpdate(row, 14, clients));\n  updates.push(getCellUpdate(row, 15, totalClients > 0 ? clients / totalClients : 0, percentFormat));\n  updates.push(getCellUpdate(row, 16, sales, currencyFormat));\n  updates.push(getCellUpdate(row, 17, totalSales > 0 ? sales / totalSales : 0, percentFormat));\n}\n\nupdates.push(getCellUpdate(8, 14, totalClients));\nupdates.push(getCellUpdate(8, 16, totalSales, currencyFormat));\n\nupdates.push(fullBorderUpdate(2, 7, 13, 18));\nupdates.push(fullBorderUpdate(7, 8, 13, 14));\nupdates.push(fullBorderUpdate(7, 8, 14, 15));\nupdates.push(fullBorderUpdate(7, 8, 16, 17));\n\nupdates.push({\n  updateDimensionProperties: {\n    range: {\n      sheetId,\n      dimension: \"COLUMNS\",\n      startIndex: 13,\n      endIndex: 14\n    },\n    properties: {\n      pixelSize: 220\n    },\n    fields: \"pixelSize\"\n  }\n});\n\nreturn { requests: updates };\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        920,
+        860
+      ],
+      "id": "0ce182e6-23e0-493b-a611-835fce91ddd3",
+      "name": "Creating a comparison table"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://sheets.googleapis.com/v4/spreadsheets/{{$node[\"Creating the 'Total_Sales' file\"].json.spreadsheetId}}:batchUpdate",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleSheetsOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1140,
+        860
+      ],
+      "id": "ea2fc66a-2302-4ec5-b78b-1fe032c049af",
+      "name": "Inserting a table",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ISQO8uulbOvYyDIs",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "move",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $('Creating the \\'Total_Sales\\' file').first().json.spreadsheetId }}",
+          "mode": "id"
+        },
+        "driveId": {
+          "__rl": true,
+          "value": "My Drive",
+          "mode": "list",
+          "cachedResultName": "My Drive",
+          "cachedResultUrl": "https://drive.google.com/drive/my-drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "REDACTED_FOLDER_ID",
+          "mode": "id"
+        }
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1360,
+        860
+      ],
+      "id": "9c98a6db-ba2e-40c9-8ac9-fb5f7f499874",
+      "name": "Transferring a file to a disk",
+      "retryOnFail": true,
+      "waitBetweenTries": 2500,
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "Fh7mboDasxRpM6IX",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1760,
+        340
+      ],
+      "id": "ea6edfbc-a860-4870-aea3-3b716c952e5e",
+      "name": "Manual trigger"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "triggerAtDay": [
+                5
+              ],
+              "triggerAtHour": 8,
+              "triggerAtMinute": 10
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -1780,
+        580
+      ],
+      "id": "42985b2c-74f5-491b-956a-3c2b80b2b583",
+      "name": "Automatic trigger"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "eca3c23f-6bc2-41d9-bacd-3ed71bd435c9",
+              "name": "start_date",
+              "value": "=2025-07-01T00:00:00",
+              "type": "string"
+            },
+            {
+              "id": "c1f0dc2a-1add-412e-8aae-8db1b53a6736",
+              "name": "end_date",
+              "value": "2025-07-31T23:59:59",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1460,
+        340
+      ],
+      "id": "21505bfc-c94c-4e77-94de-65afabb469a9",
+      "name": "Date range | manual"
+    },
+    {
+      "parameters": {
+        "jsCode": "const today = new Date();\nconst startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);\n\nconst formatDate = (d, end = false) =>\n  d.toISOString().split('T')[0] + (end ? 'T23:59:59' : 'T00:00:00');\n\nreturn [\n  {\n    json: {\n      source: 'cron',\n      start_date: formatDate(startOfMonth),\n      end_date: formatDate(today, true),\n    },\n  },\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1460,
+        580
+      ],
+      "id": "f64e9587-45ab-4873-934b-b7eb39895ecd",
+      "name": "Date range | automatic"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "21fa0bdf-cbb0-4a01-ac5b-da583796eb4e",
+              "leftValue": "={{$json.source}}",
+              "rightValue": "cron",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1260,
+        460
+      ],
+      "id": "219fbff7-0514-4b7e-b285-e0af69f095ca",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "eca3c23f-6bc2-41d9-bacd-3ed71bd435c9",
+              "name": "start_date",
+              "value": "={{ $json.start_date }}",
+              "type": "string"
+            },
+            {
+              "id": "c1f0dc2a-1add-412e-8aae-8db1b53a6736",
+              "name": "end_date",
+              "value": "={{ $json.end_date }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1080,
+        460
+      ],
+      "id": "ca3f01fd-fe33-4bb3-935e-cadeb2b162c4",
+      "name": "Transfer of dates"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Format": {
+      "main": [
+        [
+          {
+            "node": "Inserting data 'Order_List'",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Headings 'Order list'": {
+      "main": [
+        [
+          {
+            "node": "Inserting headers 'Order list'",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Inserting headers 'Order list'": {
+      "main": [
+        [
+          {
+            "node": "Formatting headers",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Creating the 'Total_Sales' file": {
+      "main": [
+        [
+          {
+            "node": "Headings 'Order list'",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Formatting 'Report' | BLOCK 1 - style",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Headings 'Customer ranking for a given period'",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Headings 'YtD Customer Ranking'",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Formatting 'Report' | BLOCK 1 - style": {
+      "main": [
+        [
+          {
+            "node": "Adding formatting to a worksheet1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Formatting 'Report' | BLOCK 2 - entering fixed text": {
+      "main": [
+        [
+          {
+            "node": "Adding formatting to a worksheet2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Adding formatting to a worksheet1": {
+      "main": [
+        [
+          {
+            "node": "Formatting 'Report' | BLOCK 2 - entering fixed text",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Adding formatting to a worksheet2": {
+      "main": [
+        [
+          {
+            "node": "Data_Import1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Data_Import2": {
+      "main": [
+        [
+          {
+            "node": "Format",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Data_Import1": {
+      "main": [
+        [
+          {
+            "node": "Formatting | metrics_by_Key_Account_Manager_E-commerce_Platform",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Formatting | metrics_by_status",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Formatting | metrics_by_Assignment",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Formatting | metrics_by_status": {
+      "main": [
+        [
+          {
+            "node": "Entering data into the spreadsheet2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Formatting | metrics_by_Assignment": {
+      "main": [
+        [
+          {
+            "node": "Entering data into the spreadsheet1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Formatting | metrics_by_Key_Account_Manager_E-commerce_Platform": {
+      "main": [
+        [
+          {
+            "node": "Entering data into the spreadsheet3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Formatting headers": {
+      "main": [
+        [
+          {
+            "node": "Adding formatting to a worksheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Adding formatting to a worksheet": {
+      "main": [
+        [
+          {
+            "node": "Data_Import2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Formatting headers1": {
+      "main": [
+        [
+          {
+            "node": "Adding formatting to a worksheet3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Headings 'Customer ranking for a given period'": {
+      "main": [
+        [
+          {
+            "node": "Inserting headers 'customer ranking for a given period'",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Inserting headers 'customer ranking for a given period'": {
+      "main": [
+        [
+          {
+            "node": "Formatting headers1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Formatting headers2": {
+      "main": [
+        [
+          {
+            "node": "Adding formatting to a worksheet4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Headings 'YtD Customer Ranking'": {
+      "main": [
+        [
+          {
+            "node": "Inserting headers 'YTD customer ranking'",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Inserting headers 'YTD customer ranking'": {
+      "main": [
+        [
+          {
+            "node": "Formatting headers2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Data_Import": {
+      "main": [
+        [
+          {
+            "node": "Format1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Adding formatting to a worksheet3": {
+      "main": [
+        [
+          {
+            "node": "Data_Import",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format1": {
+      "main": [
+        [
+          {
+            "node": "Data entry 'customer ranking for a given period'",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Data_Import3": {
+      "main": [
+        [
+          {
+            "node": "Format2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format2": {
+      "main": [
+        [
+          {
+            "node": "Data entry 'YTD customer ranking'",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Adding formatting to a worksheet4": {
+      "main": [
+        [
+          {
+            "node": "Current EUR exchange rate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Current EUR exchange rate": {
+      "main": [
+        [
+          {
+            "node": "Data_Import3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Data entry 'YTD customer ranking'": {
+      "main": [
+        [
+          {
+            "node": "Creating a comparison table",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Creating a comparison table": {
+      "main": [
+        [
+          {
+            "node": "Inserting a table",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Inserting a table": {
+      "main": [
+        [
+          {
+            "node": "Transferring a file to a disk",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Manual trigger": {
+      "main": [
+        [
+          {
+            "node": "Date range | manual",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Date range | manual": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Automatic trigger": {
+      "main": [
+        [
+          {
+            "node": "Date range | automatic",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Date range | automatic": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Transfer of dates",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Transfer of dates",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Transfer of dates": {
+      "main": [
+        [
+          {
+            "node": "Creating the 'Total_Sales' file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "25e4d137-74d5-4898-8b5d-333f78106fa5",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "123456qerty"
+  },
+  "id": "ncVgce5dq843LRKu",
+  "tags": []
+}
