@@ -1,36 +1,37 @@
 # Ecommerce-Etl-Pipeline
 Automated ETL &amp; reporting pipeline for e-commerce. Built with n8n, PostgreSQL, SQL, and Google Sheets API.
 
-## What is this?
-This is a real-world ETL pipeline I built to automate sales reporting for an e-commerce business. It completely replaces hours of manual Excel data crunching with an automated flow that pulls order data, models it in a database, and generates ready-to-read business reports.
+## About the Project
+An automated ETL pipeline developed for an e-commerce business to streamline sales reporting. The project replaces manual spreadsheet operations with a scheduled n8n workflow that extracts order data, models it in a relational database, and automatically generates formatted business reports.
 
-*(Note: The code in this repository has been fully anonymized. Sensitive data, real product names, and credentials have been replaced with generic placeholders due to NDA).*
+*(Note: The codebase has been anonymized. Sensitive data and credentials have been replaced with generic placeholders).*
 
-## The Tech Stack
-* **n8n** - Workflow automation and orchestration
-* **PostgreSQL** - Central database for storing and querying data
-* **SQL** - Doing the heavy lifting for data transformation (CTEs, JOINs, aggregations)
-* **JavaScript** - Data parsing and building Google Sheets API payloads
-* **REST APIs** - WooCommerce, Google Sheets, Live Currency Exchange
+## Tech Stack
+* **Orchestration:** n8n
+* **Database:** PostgreSQL
+* **Data Transformation:** SQL (CTEs, JOINs, Aggregations)
+* **Scripting:** JavaScript (Data parsing, API payload construction)
+* **Integrations:** REST APIs (WooCommerce, Google Sheets, Live Currency Exchange)
 
-## How it works under the hood
+## Architecture & Technical Details
 <img width="1877" height="708" alt="Screen Automated_Sales_Reporting_Pipeline" src="https://github.com/user-attachments/assets/2266122d-82f9-445d-9f1f-99296b60e80f" />
-I focused on building a reliable system rather than just moving raw data from point A to B. Here is what makes it tick:
+The pipeline is designed with data integrity and automated reporting in mind:
 
-* **Smart Database Loading (No Duplicates):** The daily sync (`WooCommerce_to_Postgres_ETL`) uses strict `UPSERT` logic based on unique Order IDs. If a workflow triggers twice, it updates existing records instead of duplicating them.
-* **SQL does the heavy lifting:** Instead of filtering data in-memory within n8n, the pipeline uses PostgreSQL to calculate business KPIs (e.g., "New vs. Returning Customers", "Sales by Rep").
-* **Dynamic Spreadsheet Formatting:** The pipeline doesn't just dump raw data into a sheet. It uses JavaScript to send `batchUpdate` requests to the Google Sheets API—automatically merging cells, applying custom colors, and formatting currencies so the business team gets a finished, styled product.
-* **Live Currency Conversion:** It pulls real-time EUR/PLN exchange rates to segment customers into tiers (Corporate, Key Account, Growth, Select) based on their actual value.
-
-## Business Impact & ROI
-As an engineer with a business background, my goal was to deliver tangible value. This pipeline achieved:
-* **Time Saved:** Replaced over 4 hours/week of manual Excel data exports, VLOOKUPs, and formatting with a 100% automated, hands-off pipeline.
-* **Data Accuracy:** Eliminated human error in financial reporting and manual customer tier assignments through strict SQL modeling and `UPSERT` logic.
-* **Actionable Insights:** Enabled the sales and management teams to make data-driven decisions based on fresh metrics, rather than waiting for end-of-month manual reports.
-<img width="1920" height="824" alt="Google Sheets Dashboard" src="https://github.com/user-attachments/assets/0e7fc2c5-527c-423b-ba9c-0b4cbe70b2b8" />
-
-
-## Files in this repo
+* **Idempotent Data Ingestion:** The daily sync (`WooCommerce_to_Postgres_ETL`) relies on strict `UPSERT` logic using unique Order IDs to prevent data duplication upon workflow re-triggers.## Files in this repo
 * `Automated_Sales_Reporting_Pipeline.json` - The main reporting flow (Extracts from Postgres, processes via JS/SQL, pushes to Google Sheets).
 * `WooCommerce_to_Postgres_ETL.json` - The daily data ingestion flow (WooCommerce to Postgres).
 * `Manual_Order_Reprocessing_Tool.json` - A small internal tool I built for the Customer Support team to manually re-sync specific orders if needed.
+* **In-Database Transformations:** Data modeling and KPI calculations (e.g., "New vs. Returning Customers", "Sales by Rep") are pushed down to PostgreSQL rather than being processed in-memory.
+* **API-Driven Formatting:** The pipeline uses JavaScript to construct `batchUpdate` requests for the Google Sheets API, automating cell merging, conditional formatting, and data presentation.
+* **Dynamic Currency Conversion:** Integrates real-time EUR/PLN exchange rates to accurately segment customers into predefined tiers (Corporate, Key Account, Growth, Select).
+
+## Project Outcomes
+* **Process Automation:** Eliminated approximately 4 hours per week of manual data extraction and spreadsheet formatting.
+* **Data Reliability:** Reduced manual entry errors in financial reporting by implementing strict SQL modeling and automated UPSERT logic.
+* **Reporting Latency:** Shifted from end-of-month manual reporting to on-demand, automated dashboards.
+<img width="1920" height="824" alt="Google Sheets Dashboard" src="https://github.com/user-attachments/assets/0e7fc2c5-527c-423b-ba9c-0b4cbe70b2b8" />
+
+## Repository Contents
+* `Automated_Sales_Reporting_Pipeline.json` - Core reporting flow (Postgres extraction, JS/SQL processing, Google Sheets API push).
+* `WooCommerce_to_Postgres_ETL.json` - Daily data ingestion workflow (WooCommerce to Postgres).
+* `Manual_Order_Reprocessing_Tool.json` - An internal utility flow for customer support to manually re-sync specific records.
